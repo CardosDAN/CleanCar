@@ -38,10 +38,10 @@
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-7">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary">Hi username, search the job you want to do next!</h5>
+                                            <h5 class="card-title text-primary">Hi username, search the job you want to
+                                                do next!</h5>
                                             <p class="mb-4">
-                                                You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                                                your profile.
+                                                You have done <span class="fw-bold">72</span> jobs this week.
                                             </p>
                                             <button type="button"
                                                     class="btn btn-primary dropdown-toggle hide-arrow"
@@ -51,7 +51,7 @@
                                             <ul class="dropdown-menu" style="">
                                                 @foreach($categories as $category)
                                                     <li><a class="dropdown-item"
-                                                           href="">{{$category->name}}</a></li>
+                                                           href="{{route('posts')}}?category_id={{$category->id}}">{{$category->name}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -74,6 +74,25 @@
 
                 </div>
                 <!-- / Content -->
+                <div class="container">
+                    <div class="row">
+                        @foreach($posts as $post)
+                            <div class="col-md-6 col-lg-4 mb-3">
+                                <div class="card h-100">
+                                    <img class="card-img-top" src="../assets/img/elements/2.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{$post->title}}</h5>
+                                        <p class="card-text">
+                                            {{$post->post_text}}
+                                        </p>
+                                        <a href="{{route('post.show', $post->id)}}" class="btn btn-outline-primary">View offer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>
 
                 <!-- Footer -->
             @include('layout.footer')
