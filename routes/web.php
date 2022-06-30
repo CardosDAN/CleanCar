@@ -16,3 +16,4 @@ Route::view('/','index')->name('home');
 
 Route::get('/posts',[\App\Http\Controllers\HomeController::class, 'index'])->name('posts');
 Route::get('post/{post}', [\App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+Route::resource('categories', \App\Http\Controllers\CategoryController::class);
