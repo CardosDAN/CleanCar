@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::view('/','index')->name('home');
 
-Route::get('/posts',[\App\Http\Controllers\HomeController::class, 'index'])->name('posts');
-Route::get('post/{post}', [\App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+Route::get('posts.posts',[\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
+//Route::get('post/{post}', [\App\Http\Controllers\PostController::class, 'show'])->name('post.show');
 Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+Route::resource('posts', \App\Http\Controllers\PostController::class);

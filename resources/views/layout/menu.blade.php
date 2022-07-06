@@ -76,7 +76,7 @@
         </li>
         <!-- Posts -->
         <li class="menu-item">
-            <a href="{{route('posts')}}" class="menu-link">
+            <a href="{{route('posts_all')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-book"></i>
                 <div data-i18n="Analytics">Posts</div>
             </a>
@@ -98,8 +98,8 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="layouts-without-navbar.html" class="menu-link">
-                        <div data-i18n="Without navbar">Without navbar</div>
+                    <a href="{{ route('posts.index') }}" class="menu-link">
+                        <div data-i18n="Without navbar">Posts</div>
                     </a>
                 </li>
                 <li class="menu-item">

@@ -51,7 +51,7 @@
                                             <ul class="dropdown-menu" style="">
                                                 @foreach($categories as $category)
                                                     <li><a class="dropdown-item"
-                                                           href="{{route('posts')}}?category_id={{$category->id}}">{{$category->name}}</a></li>
+                                                           href="{{route('posts_all')}}?category_id={{$category->id}}">{{$category->name}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -85,7 +85,7 @@
                                         <p class="card-text">
                                             {{$post->post_text}}
                                         </p>
-                                        <a href="{{route('post.show', $post->id)}}" class="btn btn-outline-primary">View offer</a>
+                                        <a href="{{route('posts.show', $post->id)}}" class="btn btn-outline-primary">View offer</a>
                                     </div>
                                 </div>
                             </div>

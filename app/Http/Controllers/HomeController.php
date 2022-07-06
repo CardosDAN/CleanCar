@@ -16,6 +16,6 @@ class HomeController extends Controller
         })
             ->latest()
             ->get();
-        return view('posts', compact('categories', 'posts'));
+        return view('posts.posts', compact('categories', 'posts'));
     }
 }
