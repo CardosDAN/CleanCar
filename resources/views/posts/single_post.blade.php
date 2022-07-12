@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-4 mb-3">
                             <div class="card h-100">
-                                <img class="card-img-top" src="../assets/img/elements/2.jpg" alt="Card image cap">
+                                <img class="card-img-top" src="{{$image}}" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">{{$post->title}}</h5>
                                     <p class="card-text">

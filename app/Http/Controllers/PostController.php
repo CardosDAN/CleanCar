@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Photos;
+use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
     /**
@@ -28,8 +28,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $photos = Photos::all();
-        return view('posts.create', compact('categories', 'photos'));
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -40,16 +39,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create([
-            'title' => $request->input('title'),
-            'post_text' => $request->input('post_text'),
-            'category_id' =>$request->input('category_id'),
-            'photo_id' =>$request->input('photo_id')
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'post_text' => 'required|string|max:855',
+            'category_id' => 'required',
         ]);
-
+        $post = new Post();
+        $post->title = $request->title;
+        $post->post_text = $request->post_text;
+        $post->category_id = $request->category_id;
+        $post->save();
+        foreach ($request->file('images') as $imagefile) {
+            $image = new Image;
+            $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
+            $image->url = $path;
+            $image->product_id = $post->id;
+            $image->save();
+        }
         return redirect()->route('posts.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -58,7 +66,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.single_post', compact('post'));
+        $image = Image::all();
+        return view('posts.single_post', compact('post', 'image'));
     }
 
     /**
@@ -70,9 +79,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        $photos = Photos::all();
+        $images = Image::all();
 
-        return view('posts.edit', compact('post', 'categories', 'photos'));
+        return view('posts.edit', compact('post', 'categories', 'images'));
 
     }
 
@@ -85,11 +94,11 @@ class PostController extends Controller
      */
     public function update(Request $request,Post $post)
     {
+        //TODO functia de update si delete
         $post->update([
             'title' => $request->input('title'),
             'post_text' => $request->input('post_text'),
             'category_id' => $request->input('category_id'),
-            'photo_id' => $request->input('photo_id'),
         ]);
 
         return redirect()->route('posts.index');

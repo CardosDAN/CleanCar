@@ -40,7 +40,7 @@
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
                                                 <div class="image">
                                                     <label><h4>Add image</h4></label>
-                                                    <input type="file" class="form-control" required name="photo_id">
+                                                    <input type="file" class="form-control" required name="images[]" multiple>
                                                   </div>
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
                                                         @foreach ($categories as $category )
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                         @endforeach
-                                                        
+
                                                     </select>
                                                 </div>
                                             </div>

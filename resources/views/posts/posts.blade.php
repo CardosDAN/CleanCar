@@ -79,7 +79,10 @@
                         @foreach($posts as $post)
                             <div class="col-md-6 col-lg-4 mb-3">
                                 <div class="card h-100">
-                                    <img class="card-img-top" src="../assets/img/elements/2.jpg" alt="Card image cap">
+                                    @foreach($post->images as $image)
+                                        <img class="card-img-top" src="{{$image->url}}" alt="Card image cap">
+                                    @endforeach
+
                                     <div class="card-body">
                                         <h5 class="card-title">{{$post->title}}</h5>
                                         <p class="card-text">

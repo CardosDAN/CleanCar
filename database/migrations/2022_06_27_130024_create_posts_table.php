@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('post_text');
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('photo_id')->constrained();
             $table->timestamps();
         });
     }

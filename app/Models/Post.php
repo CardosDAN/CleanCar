@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Image;
 
 class Post extends Model
 {
@@ -16,9 +17,8 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
-    public function photo()
+    public function images()
     {
-        return $this->belongsTo(Photos::class, 'photo_id');
+        return $this->hasMany(Image::class, 'product_id');
     }
 }
