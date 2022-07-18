@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+
 class PostController extends Controller
 {
     /**
@@ -34,7 +36,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,22 +60,23 @@ class PostController extends Controller
         }
         return redirect()->route('posts.index');
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post $post
+     * @param \App\Models\Post $post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(Post $post)
     {
-        $image = Image::all();
-        return view('posts.single_post', compact('post', 'image'));
+        $post = Post::with('images')->find($post->id);
+        return view('posts.single_post', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post $post
+     * @param \App\Models\Post $post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Post $post)
@@ -88,11 +91,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post $post
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request,Post $post)
+    public function update(Request $request, Post $post)
     {
         //TODO functia de update si delete
         $post->update([
@@ -101,13 +104,25 @@ class PostController extends Controller
             'category_id' => $request->input('category_id'),
         ]);
 
+        if ($request->file('images')) {
+            DB::table('images')->where('product_id', '=', $post->id)->delete();
+            foreach ($request->file('images') as $imagefile) {
+                $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
+                $image = new Image;
+                $image->url = $path;
+                $image->product_id = $post->id;
+
+                $image->save();
+            }
+        }
+
         return redirect()->route('posts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post $post
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Post $post)
