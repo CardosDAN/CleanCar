@@ -40,7 +40,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                                             <div class="image">
-                                                <label><h4>Add image</h4></label>
+                                                <label><h4>{{__('Add image')}}</h4></label>
                                                 @foreach($post->images as $image)
                                                     <input type="file" class="form-control"  name="images[]" value="{{$image->url}}" multiple>
                                                 @endforeach
@@ -53,14 +53,20 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
-                                                <label for="firstName" class="form-label">Title</label>
+                                                <label for="firstName" class="form-label">{{__('Title')}}</label>
                                                 <input class="form-control" type="text" id="firstName"
                                                        name="title" value="{{$post->title}}"  autofocus />
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="email" class="form-label">Description</label>
+                                                <label for="email" class="form-label">{{__('Description')}}</label>
                                                 <input class="form-control" type="text" id="email" value="{{$post->post_text}}"
                                                        name="post_text"
+                                                />
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="email" class="form-label">{{__('Address')}}</label>
+                                                <input class="form-control" type="text" id="email" value="{{$post->address}}"
+                                                       name="address"
                                                 />
                                             </div>
                                             <div class="mb-3 col-md-6">
@@ -76,7 +82,7 @@
                                         <div class="mt-2">
                                             <button type="submit" class="btn btn-primary me-2">Save
                                                 changes</button>
-                                            <button type="reset"
+                                            <button type="reset" href="{{route('posts.index')}}"
                                                     class="btn btn-outline-secondary">Cancel</button>
                                         </div>
 
