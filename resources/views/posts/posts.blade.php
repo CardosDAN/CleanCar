@@ -38,15 +38,15 @@
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-7">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary">Hi username, search the job you want to
-                                                do next!</h5>
+                                            <h5 class="card-title text-primary">{{ __('Hi username, search the job you want to
+                                                do next!') }}</h5>
                                             <p class="mb-4">
-                                                You have done <span class="fw-bold">72</span> jobs this week.
+                                                You have done <span class="fw-bold">72</span> {{ __('jobs this week.') }}
                                             </p>
                                             <button type="button"
                                                     class="btn btn-primary dropdown-toggle hide-arrow"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                                Jobs
+                                                {{__('Jobs')}}
                                             </button>
                                             <ul class="dropdown-menu" style="">
                                                 @foreach($categories as $category)
@@ -79,7 +79,7 @@
                         @foreach($posts as $post)
                             <div class="col-md-6 col-lg-4 mb-3">
                                 <div class="card h-100">
-                                    @foreach($post->images as $image)
+                                    @foreach($post->images->slice(0, 1) as $image)
                                         <img class="card-img-top" src="{{$image->url}}" alt="Card image cap">
                                     @endforeach
 
@@ -88,7 +88,7 @@
                                         <p class="card-text">
                                             {{$post->post_text}}
                                         </p>
-                                        <a href="{{route('posts.show', $post->id)}}" class="btn btn-outline-primary">View offer</a>
+                                        <a href="{{route('posts.show', $post->id)}}" class="btn btn-outline-primary">View post</a>
                                     </div>
                                 </div>
                             </div>

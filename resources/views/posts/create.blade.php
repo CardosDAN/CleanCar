@@ -38,25 +38,45 @@
 
                                         <div class="card-body">
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                                <div class="image">
-                                                    <label><h4>Add image</h4></label>
-                                                    <input type="file" class="form-control" required name="images[]" multiple>
-                                                  </div>
+                                                <label><h4>{{__('Add image')}}</h4></label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="image">
+
+                                                            <input type="file" class="form-control"  name="images[]" multiple>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="image">
+
+                                                            <input type="file" class="form-control"  name="images[]" multiple>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
                                             </div>
                                         </div>
                                         <hr class="my-0" />
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="firstName" class="form-label">Title</label>
+                                                    <label for="firstName" class="form-label">{{__('Title')}}</label>
                                                     <input class="form-control" type="text" id="firstName"
                                                         name="title"  autofocus />
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="email" class="form-label">Description</label>
+                                                    <label for="email" class="form-label">{{__('Description')}}</label>
                                                     <input class="form-control" type="text" id="email"
                                                         name="post_text"
                                                         />
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="email" class="form-label">{{__('Address')}}</label>
+                                                    <input class="form-control" type="text" id="email"
+                                                           name="address"
+                                                    />
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="country">Category</label>

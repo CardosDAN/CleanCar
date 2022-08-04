@@ -45,10 +45,12 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'post_text' => 'required|string|max:855',
             'category_id' => 'required',
+            'address' => 'required',
         ]);
         $post = new Post();
         $post->title = $request->title;
         $post->post_text = $request->post_text;
+        $post->address = $request->address;
         $post->category_id = $request->category_id;
         $post->save();
         foreach ($request->file('images') as $imagefile) {
@@ -97,11 +99,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //TODO functia de update si delete
         $post->update([
             'title' => $request->input('title'),
             'post_text' => $request->input('post_text'),
             'category_id' => $request->input('category_id'),
+            'address' => $request->input('address'),
         ]);
 
         if ($request->file('images')) {
