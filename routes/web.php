@@ -13,13 +13,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('/home','index')->name('home');
-Route::view('/','welcome')->name('home');
+Route::view('/', 'welcome')->name('landing');
 
-Route::get('posts.posts',[\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
-Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-Route::resource('posts', \App\Http\Controllers\PostController::class);
+Route::group(['middleware' => ['auth']], function () {
+//    Route::get('user.settings', [])
+    Route::view('/home', 'index')->name('home');
+    Route::get('posts.posts', [\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('level:2');
+    Route::resource('posts', \App\Http\Controllers\PostController::class)->middleware('level:2');
+});
+
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

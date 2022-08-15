@@ -78,7 +78,8 @@
                       </g>
                     </svg>
                   </span>
-                            <span class="app-brand-text demo text-body fw-bolder">{{ config('app.name', 'Laravel') }}</span>
+                            <span
+                                class="app-brand-text demo text-body fw-bolder">{{ config('app.name', 'Laravel') }}</span>
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -105,7 +106,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">{{__('Email')}}</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email value="{{ old('email') }}" required autocomplete="email">
+                            <input
+                                type="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                id="email"
+                                name="email"
+                                value="{{ old('email') }}" required autocomplete="email" autofocus
+                            />
 
                             @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -118,15 +125,29 @@
                             <div class="input-group input-group-merge">
                                 <input
                                     type="password"
-                                    id="password"
                                     class="form-control @error('password') is-invalid @enderror"
-                                    required autocomplete="new-password"
+                                    id="password"
+                                    name="password"
+                                    value="{{ old('password') }}" required autocomplete="new-password" autofocus
                                 />
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-password-toggle">
+                            <label class="form-label" for="password-confirm">{{ __('Confirm Password') }}</label>
+                            <div class="input-group input-group-merge">
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password-confirm"
+                                    name="password_confirmation"
+                                    required autocomplete="new-password" autofocus
+                                />
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>

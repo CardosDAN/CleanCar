@@ -38,7 +38,7 @@
                                 <div class="d-flex align-items-end row">
                                     <div class="col-sm-7">
                                         <div class="card-body">
-                                            <h5 class="card-title text-primary">{{ __('Hi username, search the job you want to
+                                            <h5 class="card-title text-primary">{{__('Hi')}} {{\Illuminate\Support\Facades\Auth::user()->name}}  {{ __(' , search the job you want to
                                                 do next!') }}</h5>
                                             <p class="mb-4">
                                                 You have done <span class="fw-bold">72</span> {{ __('jobs this week.') }}

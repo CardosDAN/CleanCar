@@ -43,7 +43,17 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                    <small class="text-muted">Admin</small>
+                                    <small class="text-muted">
+                                        @if(\Illuminate\Support\Facades\Auth::user()->level_id === 1)
+                                            User
+                                        @elseif(\Illuminate\Support\Facades\Auth::user()->level_id === 2)
+                                            Manager
+                                        @elseif(\Illuminate\Support\Facades\Auth::user()->level_id === 3)
+                                            Worker
+                                        @elseif(\Illuminate\Support\Facades\Auth::user()->level_id === 4)
+                                            Admin
+                                        @endif
+                                    </small>
                                 </div>
                             </div>
                         </a>
