@@ -83,7 +83,10 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-time me-2"></i>
-                                        {{--                                        {{$post->crated_at}}--}}
+                                        {{$post->created_at}}
+                                    </li>  <li class="list-group-item d-flex align-items-center">
+                                        <i class="bx bx-phone-call me-2"></i>
+                                        {{$post->phone}}
                                     </li>
                                 </ul>
                             </div>

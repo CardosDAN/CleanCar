@@ -16,5 +16,8 @@ class Image extends Model
     {
         return $this->belongsTo(Post::class, 'product_id');
     }
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 }

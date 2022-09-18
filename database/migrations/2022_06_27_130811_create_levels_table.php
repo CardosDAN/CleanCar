@@ -13,7 +13,7 @@ class CreateLevelsUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels_user', function (Blueprint $table) {
+        Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->string('level_name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateLevelsUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels_user');
+        Schema::dropIfExists('levels');
     }
 }

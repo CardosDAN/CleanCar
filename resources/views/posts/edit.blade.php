@@ -54,29 +54,47 @@
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="firstName" class="form-label">{{__('Title')}}</label>
-                                                <input class="form-control" type="text" id="firstName"
+                                                <input class="form-control @error('title') is-invalid @enderror" type="text" id="firstName"
                                                        name="title" value="{{$post->title}}"  autofocus />
                                             </div>
+                                            @error('title')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                             <div class="mb-3 col-md-6">
-                                                <label for="email" class="form-label">{{__('Description')}}</label>
-                                                <input class="form-control" type="text" id="email" value="{{$post->post_text}}"
+                                                <label for="email" class="form-label  ">{{__('Description')}}</label>
+                                                <input class="form-control @error('post_text') is-invalid @enderror" type="text" id="email" value="{{$post->post_text}}"
                                                        name="post_text"
                                                 />
+                                                @error('post_text')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                </span>
+                                                @enderror
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="email" class="form-label">{{__('Address')}}</label>
-                                                <input class="form-control" type="text" id="email" value="{{$post->address}}"
+                                                <input class="form-control @error('address') is-invalid @enderror" type="text" id="email" value="{{$post->address}}"
                                                        name="address"
                                                 />
+                                                @error('address')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label class="form-label" for="country">Category</label>
-                                                <select id="country" class="select2 form-select" name="category_id">
+                                                <select id="country" class="select2 form-select @error('category_id') is-invalid @enderror" name="category_id">
                                                     @foreach ($categories as $category )
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
 
                                                 </select>
+                                                @error('category_id')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="mt-2">

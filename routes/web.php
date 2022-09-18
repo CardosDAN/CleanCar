@@ -20,10 +20,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('/home', 'index')->name('home');
     Route::get('posts.posts', [\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->middleware('level:2');
+    Route::resource('user', \App\Http\Controllers\UserController::class)->middleware('level:2');
     Route::resource('posts', \App\Http\Controllers\PostController::class)->middleware('level:2');
 });
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 

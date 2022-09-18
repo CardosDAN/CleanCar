@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,11 +47,14 @@ class PostController extends Controller
             'post_text' => 'required|string|max:855',
             'category_id' => 'required',
             'address' => 'required',
+            'phone' => 'required|numeric|digits:10',
         ]);
         $post = new Post();
         $post->title = $request->title;
         $post->post_text = $request->post_text;
         $post->address = $request->address;
+        $post->phone = $request->phone;
+        $post->user_id = Auth::user()->id;
         $post->category_id = $request->category_id;
         $post->save();
         foreach ($request->file('images') as $imagefile) {
@@ -60,7 +64,7 @@ class PostController extends Controller
             $image->product_id = $post->id;
             $image->save();
         }
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('success','The post has been created successfully.');
     }
 
     /**
@@ -104,6 +108,7 @@ class PostController extends Controller
             'post_text' => $request->input('post_text'),
             'category_id' => $request->input('category_id'),
             'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
         ]);
 
         if ($request->file('images')) {
