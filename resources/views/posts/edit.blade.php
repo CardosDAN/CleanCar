@@ -26,7 +26,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Add post /</span> Post</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Edit post /</span> Post</h4>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -40,7 +40,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                                             <div class="image">
-                                                <label><h4>{{__('Add image')}}</h4></label>
+                                                <label><h4>{{__('Edit image')}}</h4></label>
                                                 @foreach($post->images as $image)
                                                     <input type="file" class="form-control"  name="images[]" value="{{$image->url}}" multiple>
                                                 @endforeach

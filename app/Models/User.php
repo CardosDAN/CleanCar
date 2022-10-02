@@ -11,10 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function images()
-    {
-        return $this->hasMany(Image::class, 'user_id');
-    }
     public function level()
     {
         return $this->belongsTo(Levels::class);

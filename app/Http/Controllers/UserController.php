@@ -46,22 +46,17 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:3', 'confirmed'],
         ]);
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-//TODO imagine pt user in baza de date nu ii gata
+//TODO imagine pt user
 
-        foreach ($request->file('images') as $imagefile) {
-            $image = new Image;
-            $path = $imagefile->store('/images/users', ['disk' => 'my_files']);
-            $image->url = $path;
-            $image->product_id = $user->id;
-            $image->save();
-        }
+
+
         return redirect()->route('user.index');
     }
 
@@ -88,7 +83,7 @@ class UserController extends Controller
     {
         $levels = Levels::all();
         $images = Image::all();
-        return view('user.settings', compact('user', 'levels', 'images'));
+        return view('user.edit', compact('user', 'levels', 'images'));
         //TODO pagina de editare
     }
 
@@ -103,22 +98,11 @@ class UserController extends Controller
     {
         $user->update([
             'name' => $request->input('name'),
-            'password' => $request->input('password'),
             'email' => $request->input('email'),
             'level_id' => $request->input('level_id'),
         ]);
 
-        if ($request->file('images')) {
-            DB::table('images')->where('product_id', '=', $user->id)->delete();
-            foreach ($request->file('images') as $imagefile) {
-                $path = $imagefile->store('/images/users', ['disk' => 'my_files']);
-                $image = new Image;
-                $image->url = $path;
-                $image->product_id = $user->id;
 
-                $image->save();
-            }
-        }
 
         return redirect()->route('user.index');
     }
@@ -132,6 +116,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('user.indedx');
+        return redirect()->route('user.index');
     }
 }

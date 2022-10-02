@@ -12,7 +12,6 @@ class Post extends Model
 
     protected $fillable = ['title', 'post_text', 'category_id'];
 
-    // pt a afisa numele categoriei in loc de id
     public function category()
     {
         return $this->belongsTo(Category::class);
