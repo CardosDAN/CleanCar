@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTablePosts extends Migration
+class AddPhoneToPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AlterTablePosts extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->default(null);
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('phone');
         });
     }
 
@@ -26,9 +25,8 @@ class AlterTablePosts extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table){
-            $table->dropForeign('user_id');
-            $table->dropColumn('user_id');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('phone');
         });
     }
 }

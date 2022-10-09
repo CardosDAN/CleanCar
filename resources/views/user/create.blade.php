@@ -44,7 +44,7 @@
                                                 <div class="col">
                                                     <div class="image">
 
-                                                        <input type="file" class="form-control" name="images[]"
+                                                        <input type="file" class="form-control" name="image"
                                                                multiple>
                                                     </div>
                                                 </div>
