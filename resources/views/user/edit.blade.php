@@ -127,6 +127,22 @@
                                 </form>
                             </div>
                             <!-- /Account -->
+                            <div class="card">
+                                <h5 class="card-header">{{__("Delete Account")}}</h5>
+                                <div class="card-body">
+                                    <div class="mb-3 col-12 mb-0">
+                                        <div class="alert alert-warning">
+                                            <h6 class="alert-heading fw-bold mb-1">{{__("Are you sure you want to delete your account?")}}</h6>
+                                            <p class="mb-0">{{__("Once you delete your account, there is no going back. Please be certain.")}}</p>
+                                        </div>
+                                    </div>
+                                    <form id="formAccountDeactivation" method="POST" action="{{route('user.destroy', $user)}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger deactivate-account">{{__("Deactivate Account")}}</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

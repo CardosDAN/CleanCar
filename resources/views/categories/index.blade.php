@@ -82,7 +82,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                {{ $categories->links() }}
                             </table>
+
                         </div>
                     </div>
                     <!--/ Basic Bootstrap Table -->

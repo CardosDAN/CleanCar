@@ -22,7 +22,9 @@ class LevelUserMiddleware
             return $next($request);
         }elseif ($role === 3 and $level){
             return $next($request);
-        }elseif ($role === 4 and $level) {
+        }elseif ($role < 5 and $level) {
+            return $next($request);
+        }elseif ($role === 1 and $level){
             return $next($request);
         }
 //        }elseif ($role === 1){

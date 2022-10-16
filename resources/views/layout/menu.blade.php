@@ -81,34 +81,35 @@
                 <div data-i18n="Analytics">Posts</div>
             </a>
         </li>
+        @if(Auth::user()->level_id === 2 || Auth::user()->level_id === 4 )
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Admin</span>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Manage</div>
+                </a>
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Manager</span>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Manage</div>
-            </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{route('categories.index')}}" class="menu-link">
-                        <div data-i18n="Without menu">Categories</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('posts.index') }}" class="menu-link">
-                        <div data-i18n="Without navbar">Posts</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('user.index') }}" class="menu-link">
-                        <div data-i18n="Without navbar">Users</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{route('categories.index')}}" class="menu-link">
+                            <div data-i18n="Without menu">Categories</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('posts.index') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Posts</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('user.index') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Users</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>

@@ -88,6 +88,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                {{ $posts->links() }}
                             </table>
                         </div>
                     </div>

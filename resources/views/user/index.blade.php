@@ -77,6 +77,8 @@
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="{{route('user.edit',$user)}}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                    <a class="dropdown-item" href="{{route('user.show',$user)}}"><i
+                                                            class="bx bx-show-alt me-1"></i> View</a>
                                                     <form method="POST" action="{{route('user.destroy', $user)}}">
                                                         @csrf
                                                         @method('DELETE')
@@ -89,6 +91,7 @@
                                     </tr>
                                 @endforeach
                             </table>
+                            {{ $users->links() }}
                         </div>
                     </div>
                     <!--/ Basic Bootstrap Table -->

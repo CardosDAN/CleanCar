@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
+use Illuminate\Pagination\Paginator;
+
 
 class UserController extends Controller
 {
@@ -19,7 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        Paginator::useBootstrap();
+        $users = User::paginate(10);
         return view('user.index', compact('users'));
     }
 
@@ -73,7 +76,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('user.edit', compact('user'));
+        $levels = Levels::all();
+        return view('user.account', compact('user', 'levels'));
     }
 
     /**
