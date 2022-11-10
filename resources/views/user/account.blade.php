@@ -122,8 +122,8 @@
                                                 </span>
                                             </li>
                                             <li class="mb-3">
-                                                <span class="fw-bold me-2">Tax id:</span>
-                                                <span>Tax-8965</span>
+                                                <span class="fw-bold me-2">{{__("id:")}}</span>
+                                                <span>{{$user->id}}</span>
                                             </li>
                                             <li class="mb-3">
                                                 <span class="fw-bold me-2">Languages:</span>
@@ -165,33 +165,10 @@
 
                             <!-- Project table -->
                             <div class="card mb-4">
-                                <h5 class="card-header">User's Projects List</h5>
+                                <h5 class="card-header">{{__("User's Posts List")}}</h5>
                                 <div class="table-responsive mb-3">
                                     <div id="DataTables_Table_0_wrapper"
                                          class="dataTables_wrapper dt-bootstrap5 no-footer">
-                                        <div
-                                            class="d-flex justify-content-between align-items-center flex-column flex-sm-row mx-4 row">
-                                            <div
-                                                class="col-sm-4 col-12 d-flex align-items-center justify-content-sm-start justify-content-center">
-                                                <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show
-                                                        <select name="DataTables_Table_0_length"
-                                                                aria-controls="DataTables_Table_0" class="form-select">
-                                                            <option value="7">7</option>
-                                                            <option value="10">10</option>
-                                                            <option value="25">25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="75">75</option>
-                                                            <option value="100">100</option>
-                                                        </select></label></div>
-                                            </div>
-                                            <div
-                                                class="col-sm-8 col-12 d-flex align-items-center justify-content-sm-end justify-content-center">
-                                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input
-                                                            type="search" class="form-control"
-                                                            placeholder="Search Project"
-                                                            aria-controls="DataTables_Table_0"></label></div>
-                                            </div>
-                                        </div>
                                         <table class="table datatable-project border-top dataTable no-footer dtr-column"
                                                id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info"
                                                style="width: 773px;">
@@ -205,244 +182,41 @@
                                                     aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                                                     style="width: 287px;"
                                                     aria-label="Project: activate to sort column ascending"
-                                                    aria-sort="descending">Project
+                                                    aria-sort="descending">Title
                                                 </th>
                                                 <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
-                                                    style="width: 119px;" aria-label="Total Task">Total Task
+                                                    style="width: 119px;" aria-label="Total Task">Description
                                                 </th>
-                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                    rowspan="1" colspan="1" style="width: 111px;"
-                                                    aria-label="Progress: activate to sort column ascending">Progress
+                                                <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
+                                                    style="width: 119px;" aria-label="Total Task">Phone nr
                                                 </th>
                                                 <th class="sorting_disabled" rowspan="1" colspan="1"
-                                                    style="width: 84px;" aria-label="Hours">Hours
+                                                    style="width: 84px;" aria-label="Hours">Address
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr class="odd">
+                                                @foreach($posts as $post)
                                                 <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
                                                 <td class="sorting_1">
                                                     <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/vue-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
                                                         <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Vue Admin template</span><small
-                                                                class="text-muted">Vuejs Project</small></div>
+                                                                class="text-truncate fw-semibold">{{$post->title}}</span>
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td class="" style="">214/627</td>
+                                                <td class="" style=""> {{$post->post_text}}</td>
                                                 <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">78%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-success" style="width: 78%"
-                                                                 aria-valuenow="78%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
+                                                    <div class="d-flex flex-column">
+                                                        <small class="mb-1">{{$post->phone}}</small>
                                                     </div>
                                                 </td>
-                                                <td class="" style="">88:19h</td>
+                                                <td class="" style="">{{$post->address}}</td>
                                             </tr>
-                                            <tr class="even">
-                                                <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
-                                                <td class="sorting_1">
-                                                    <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/event-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
-                                                        <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Online Webinar</span><small
-                                                                class="text-muted">Official Event</small></div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">12/20</td>
-                                                <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">69%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-info" style="width: 69%"
-                                                                 aria-valuenow="69%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">12:12h</td>
-                                            </tr>
-                                            <tr class="odd">
-                                                <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
-                                                <td class="sorting_1">
-                                                    <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/html-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
-                                                        <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Hoffman Website</span><small
-                                                                class="text-muted">HTML Project</small></div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">56/183</td>
-                                                <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">43%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-warning" style="width: 43%"
-                                                                 aria-valuenow="43%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">76h</td>
-                                            </tr>
-                                            <tr class="even">
-                                                <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
-                                                <td class="sorting_1">
-                                                    <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/sketch-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
-                                                        <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Foodista mobile app</span><small
-                                                                class="text-muted">iPhone Project</small></div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">12/86</td>
-                                                <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">49%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-warning" style="width: 49%"
-                                                                 aria-valuenow="49%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">45h</td>
-                                            </tr>
-                                            <tr class="odd">
-                                                <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
-                                                <td class="sorting_1">
-                                                    <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/xd-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
-                                                        <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Falcon Logo Design</span><small
-                                                                class="text-muted">UI/UX Project</small></div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">9/50</td>
-                                                <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">15%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-danger" style="width: 15%"
-                                                                 aria-valuenow="15%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">89h</td>
-                                            </tr>
-                                            <tr class="even">
-                                                <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
-                                                <td class="sorting_1">
-                                                    <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/react-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
-                                                        <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Dojo React Project</span><small
-                                                                class="text-muted">React Project</small></div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">234/378</td>
-                                                <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">73%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-info" style="width: 73%"
-                                                                 aria-valuenow="73%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">67:10h</td>
-                                            </tr>
-                                            <tr class="odd">
-                                                <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
-                                                <td class="sorting_1">
-                                                    <div class="d-flex justify-content-left align-items-center">
-                                                        <div class="avatar-wrapper">
-                                                            <div class="avatar avatar-sm me-3"><img
-                                                                    src="../../assets/img/icons/brands/vue-label.png"
-                                                                    alt="Project Image" class="rounded-circle"></div>
-                                                        </div>
-                                                        <div class="d-flex flex-column"><span
-                                                                class="text-truncate fw-semibold">Dashboard Design</span><small
-                                                                class="text-muted">Vuejs Project</small></div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">100/190</td>
-                                                <td>
-                                                    <div class="d-flex flex-column"><small class="mb-1">90%</small>
-                                                        <div class="progress w-100 me-3" style="height: 6px;">
-                                                            <div class="progress-bar bg-success" style="width: 90%"
-                                                                 aria-valuenow="90%" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="" style="">129:45h</td>
-                                            </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="d-flex justify-content-between mx-4 row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
-                                                     aria-live="polite">Showing 1 to 7 of 11 entries
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="dataTables_paginate paging_simple_numbers"
-                                                     id="DataTables_Table_0_paginate">
-                                                    <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled"
-                                                            id="DataTables_Table_0_previous"><a href="#"
-                                                                                                aria-controls="DataTables_Table_0"
-                                                                                                data-dt-idx="0"
-                                                                                                tabindex="0"
-                                                                                                class="page-link">Previous</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item active"><a href="#"
-                                                                                                        aria-controls="DataTables_Table_0"
-                                                                                                        data-dt-idx="1"
-                                                                                                        tabindex="0"
-                                                                                                        class="page-link">1</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item "><a href="#"
-                                                                                                  aria-controls="DataTables_Table_0"
-                                                                                                  data-dt-idx="2"
-                                                                                                  tabindex="0"
-                                                                                                  class="page-link">2</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item next"
-                                                            id="DataTables_Table_0_next"><a href="#"
-                                                                                            aria-controls="DataTables_Table_0"
-                                                                                            data-dt-idx="3" tabindex="0"
-                                                                                            class="page-link">Next</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

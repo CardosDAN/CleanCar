@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -77,8 +78,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $posts = DB::table('posts')->where('user_id', $post->user_id)->get();
         $post = Post::with('images')->find($post->id);
-        return view('posts.single_post', compact('post'));
+        return view('posts.single_post', compact('post','posts'));
     }
 
     /**

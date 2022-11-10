@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Levels;
+use App\Models\Post;
 use App\Models\User;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
@@ -62,8 +63,6 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->image_path = $newImageName;
         $user->save();
-//TODO resize imagine
-
 
         return redirect()->route('user.index');
     }
@@ -74,10 +73,12 @@ class UserController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
+
     public function show(User $user)
     {
-        $levels = Levels::all();
-        return view('user.account', compact('user', 'levels'));
+        Paginator::useBootstrap();
+        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(6);
+        return view('user.account', compact('user',  'posts'));
     }
 
     /**
@@ -101,7 +102,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-//TODO edit image si resize
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -109,7 +109,7 @@ class UserController extends Controller
             'image_path' => $request->input('image'),
         ]);
         if( $request->file('image')){
-//            User::where('id', $user)->update(array('image' => 'image'));
+            DB::table('users')->where('image_path', '=', 'image')->update(array('image_path' => 'image'));
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images/users'), $newImageName);
         }
