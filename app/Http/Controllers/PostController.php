@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +13,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -91,6 +99,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+
         $categories = Category::all();
         $images = Image::all();
 
@@ -138,6 +147,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+
         $post->delete();
 
         return redirect()->route('posts.index');
