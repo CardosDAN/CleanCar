@@ -15,7 +15,7 @@ class AddLevelIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('level_id')->default('1');
-            $table->foreign('level_id')->references('id')->on('levels_user')->onDelete('cascade');
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
         });
     }
 
