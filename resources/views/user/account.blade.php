@@ -105,7 +105,23 @@
                                             </li>
                                             <li class="mb-3">
                                                 <span class="fw-bold me-2">Status:</span>
-                                                <span class="badge bg-label-success">Active</span>
+                                                <span class="badge bg-label-success">
+                                                     @if(Cache::has('is_online' . $user->id))
+                                                        <span class="text-success">Online</span>
+                                                    @else
+                                                        <span class="text-secondary">Offline</span>
+                                                    @endif
+                                                </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">Last seen:</span>
+                                                <span class="badge bg-label-secondary">
+                                                     @if($user->last_seen != null)
+                                                        {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
+                                                    @else
+                                                        No data
+                                                    @endif
+                                                </span>
                                             </li>
                                             <li class="mb-3">
                                                 <span class="fw-bold me-2">{{__("Role:")}}</span>
