@@ -23,6 +23,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('user', \App\Http\Controllers\UserController::class);
     Route::resource('posts', \App\Http\Controllers\PostController::class);
     Route::resource('offer', \App\Http\Controllers\OfferController::class);
+    Route::get('offer.accept/{id}', [\App\Http\Controllers\ActionController::class, 'accepted'])->name('offer.accept');
+    Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
 });
 
 

@@ -99,14 +99,16 @@
                                                     placeholder="john.doe@example.com"
                                                 />
                                             </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label" for="country">{{__('Level')}}</label>
-                                                <select id="country" name="level_id" class="select2 form-select">
-                                                    @foreach($levels as $level)
-                                                        <option value="{{$level->id}}">{{$level->level_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->level_id == 4)
+                                                <div class="mb-3 col-md-6">
+                                                    <label class="form-label" for="country">{{__('Level')}}</label>
+                                                    <select id="country" name="level_id" class="select2 form-select">
+                                                        @foreach($levels as $level)
+                                                            <option value="{{$level->id}}">{{$level->level_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="mt-2">
                                             <button type="submit" class="btn btn-primary me-2">Save changes</button>

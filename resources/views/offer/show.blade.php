@@ -79,6 +79,14 @@
                             <div class="divider"></div>
                         </div>
                         <div class="col-md-6 m-lg-auto shadow-lg ">
+                            <div class="divider"></div>
+                            @if(session('status'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    {{session('status')}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            @endif
                             <h5 class="card-header">{{__("Offers List")}}</h5>
                             <div class="table-responsive mb-3">
                                 <div id="DataTables_Table_0_wrapper"
@@ -94,7 +102,7 @@
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Total Task">Price
                                             </th>
-                                            <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
+                                            <th class="text-nowrap sorting_disabled"
                                                 aria-label="Total Task">Actions
                                             </th>
                                         </tr>
@@ -103,6 +111,7 @@
                                         <tr class="odd">
                                             <td class="control dtr-hidden" tabindex="0" style="display: none;"></td>
                                             <td class="sorting_1">
+
                                                 <div class="d-flex justify-content-left align-items-center">
                                                     <div class="d-flex flex-column"><span
                                                             class="text-truncate fw-semibold">{{$offer->user->name}}</span>
@@ -111,8 +120,18 @@
                                             </td>
                                             <td class="" style=""> {{$offer->price}}</td>
                                             <td class="" style="">
-                                                <a class="dropdown-item" onclick="{{\App\Models\Offer::where("id", $offer->id)->update(['accepted' => 1])}}"><i
-                                                        class="bx bx-check-circle "></i></a>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        @if($offer->accepted == 0)
+                                                            <a class="btn btn-outline-success"
+                                                               href="{{route('offer.accept', $offer->id)}}">{{__("Accept")}}</a>
+                                                        @endif
+                                                        @if($offer->deleted == 0)
+                                                            <a class="btn btn-outline-danger"
+                                                               href="{{route('offer.delete', $offer->id)}}">{{__("Reject")}}</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -147,8 +166,6 @@
 <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
-
-
 @include('layout.script')
 </body>
 </html>
