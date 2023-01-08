@@ -34,7 +34,9 @@ class OfferPolicy
      */
     public function view(User $user, Offer $offer)
     {
-        return TRUE;
+        return auth()->user()->level_id === Levels::ADMIN || auth()->user()->level_id === Levels::MANAGER || auth()->user()->id === $offer->user_id
+            ? Response::allow()
+            : Response::deny("You don't have aces to this", '403');
     }
 
     /**

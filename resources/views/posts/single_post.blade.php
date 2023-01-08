@@ -32,7 +32,7 @@
                 <!-- Content -->
                 <!-- / Content -->
                 <div class="container-fluid">
-                    <a class="btn btn-primary float-end mt-3" href="{{route('offer.create','post_id='.$post->id)}}">cerere</a>
+                    <a class="btn btn-primary float-end mt-3" href="{{route('offer.create','post_id='.$post->id)}}">{{__("Offer")}}</a>
                 </div>
                 <div class="container m-4">
                     <div class="row justify-content-between">
@@ -69,7 +69,7 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-time me-2"></i>
-                                        {{$post->created_at}}
+                                        {{$post->created_at->diffForHumans()}}
                                     </li>  <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-phone-call me-2"></i>
                                         {{$post->phone}}

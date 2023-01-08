@@ -66,7 +66,7 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-time me-2"></i>
-                                        {{$offer->post->created_at}}
+                                        {{$offer->post->created_at->diffForHumans()}}
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-phone-call me-2"></i>
@@ -87,6 +87,7 @@
                                             aria-label="Close"></button>
                                 </div>
                             @endif
+
                             <h5 class="card-header">{{__("Offers List")}}</h5>
                             <div class="table-responsive mb-3">
                                 <div id="DataTables_Table_0_wrapper"
@@ -140,10 +141,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5  mb-3 shadow-lg rounded">
+                        <div class="col-md-12 mb-3 shadow-lg rounded">
                             <div class="divider"></div>
                             <?php
-                            echo '<iframe frameborder="0" height="320" width="470"
+                            echo '<iframe frameborder="0" height="350" width="990"
                                  src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=' . str_replace(",", "", str_replace(" ", "+", $offer->post->address)) . '&z=14&output=embed"></iframe>'; ?>
                             <div class="divider"></div>
                         </div>

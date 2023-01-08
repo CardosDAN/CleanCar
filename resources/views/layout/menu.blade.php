@@ -75,12 +75,6 @@
             </a>
         </li>
         <!-- Posts -->
-        <li class="menu-item">
-            <a href="{{route('posts_all')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-book"></i>
-                <div data-i18n="Analytics">Posts</div>
-            </a>
-        </li>
         @if(Auth::user()->level_id === 2 || Auth::user()->level_id === 4 )
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Admin</span>
@@ -110,6 +104,50 @@
                     <li class="menu-item">
                         <a href="{{ route('offer.index') }}" class="menu-link">
                             <div data-i18n="Without navbar">Offers</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
+        @if(Auth::user()->level_id === \App\Models\Levels::USER || Auth::user()->level_id === \App\Models\Levels::ADMIN || Auth::user()->level_id === \App\Models\Levels::MANAGER)
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">User</span>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Manage</div>
+                </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('offer.user') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Offers</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('posts.create') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Add Post</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
+
+        @if(Auth::user()->level_id === \App\Models\Levels::WORKER || Auth::user()->level_id === \App\Models\Levels::ADMIN || Auth::user()->level_id === \App\Models\Levels::MANAGER)
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Worker</span>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-layout"></i>
+                    <div data-i18n="Layouts">Manage</div>
+                </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{route('posts_all')}}" class="menu-link">
+                            <div data-i18n="Without navbar">Posts</div>
                         </a>
                     </li>
                 </ul>
