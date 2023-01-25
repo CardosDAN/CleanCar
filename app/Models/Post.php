@@ -16,6 +16,10 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function cities(){
+        return $this->belongsTo(City::class, 'city_id');
+    }
     public function images()
     {
         return $this->hasMany(Image::class, 'product_id');

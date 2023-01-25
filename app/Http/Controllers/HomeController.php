@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\{Country, State, City};
 
 class HomeController extends Controller
 {
@@ -25,12 +27,48 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data['countries'] = Country::get(["name", "id"]);
+        $posts = Post::all();
         $categories = Category::all();
-        $posts = Post::when(request('category_id'), function ($query) {
-            $query->where('category_id', request('category_id'));
-        })
-            ->latest()
-            ->get();
-        return view('posts.posts', compact('categories', 'posts'));
+        return view('posts.posts',$data, compact('categories', 'posts'));
     }
+
+    public function fetchPosts(Request $request)
+    {
+        $category_id = $request->input('category_id');
+        $city_id = $request->input('city_id');
+        $posts = Post::where('category_id', $category_id)->where('city_id', $city_id)
+            ->with('images')
+            ->get();
+        return response()->json($posts);
+    }
+
+    public function fetchState(Request $request)
+    {
+        $data['states'] = State::where("country_id",$request->country_id)->get(["name", "id"]);
+        return response()->json($data);
+    }
+    public function fetchCity(Request $request)
+    {
+        $data['cities'] = City::where("state_id",$request->state_id)->get(["name", "id"]);
+        return response()->json($data);
+
+    }
+
+//    public function notification(){
+//        $notifi = auth()->user()->unreadNotifications;
+//        return view('layout.navbar', compact('notifi'));
+//    }
+//
+//    public function markNotification(Request $request){
+//        auth()->user()
+//            ->unreadNotifications
+//            ->when($request->input('id'), function ($query) use ($request){
+//                return $query->where('id', $request->input('id'));
+//            })
+//            ->markAsRead();
+//        return response()->noContent();
+//    }
 }
+
+

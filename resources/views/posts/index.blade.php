@@ -77,6 +77,8 @@
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="{{route('posts.edit',$post)}}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                    <a class="dropdown-item" href="{{route('posts.show',$post)}}"><i
+                                                            class="bx bx-show-alt me-1"></i> Show</a>
                                                     <form method="POST" action="{{route('posts.destroy', $post)}}">
                                                         @csrf
                                                         @method('DELETE')

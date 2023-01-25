@@ -25,6 +25,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('offer', \App\Http\Controllers\OfferController::class);
     Route::get('offer.accept/{id}', [\App\Http\Controllers\ActionController::class, 'accepted'])->name('offer.accept');
     Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
+    Route::get('layout.navbar', [\App\Http\Controllers\HomeController::class, 'notification']);
+    Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');
+
+    Route::get('api/fetch-posts', [\App\Http\Controllers\HomeController::class, 'fetchPosts']);
+    Route::post('api/fetch-states', [\App\Http\Controllers\HomeController::class, 'fetchState']);
+    Route::post('api/fetch-cities', [\App\Http\Controllers\HomeController::class, 'fetchCity']);
+
 });
 
 

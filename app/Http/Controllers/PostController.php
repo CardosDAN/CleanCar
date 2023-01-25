@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Country;
 use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -42,7 +43,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('posts.create', compact('categories'));
+        $data['countries'] = Country::get(["name", "id"]);
+        return view('posts.create',$data, compact('categories'));
     }
 
     /**
@@ -57,16 +59,16 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'post_text' => 'required|string|max:855',
             'category_id' => 'required',
-            'address' => 'required',
+            'city_id' => 'required',
             'phone' => 'required|numeric|digits:10',
         ]);
         $post = new Post();
         $post->title = $request->title;
         $post->post_text = $request->post_text;
-        $post->address = $request->address;
         $post->phone = $request->phone;
         $post->user_id = Auth::user()->id;
         $post->category_id = $request->category_id;
+        $post->city_id = $request->city_id;
         $post->save();
         foreach ($request->file('images') as $imagefile) {
             $image = new Image;
