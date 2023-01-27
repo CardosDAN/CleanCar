@@ -25,12 +25,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('offer', \App\Http\Controllers\OfferController::class);
     Route::get('offer.accept/{id}', [\App\Http\Controllers\ActionController::class, 'accepted'])->name('offer.accept');
     Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
-    Route::get('layout.navbar', [\App\Http\Controllers\HomeController::class, 'notification']);
     Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');
+    Route::post('/notifications/{id}/read', [\App\Http\Controllers\ActionController::class, 'markAsRead']);
+    Route::get("api/notifications/read-all", [\App\Http\Controllers\ActionController::class, 'mark_all_as_read'])->name('notifications.read_all');
 
     Route::get('api/fetch-posts', [\App\Http\Controllers\HomeController::class, 'fetchPosts']);
     Route::post('api/fetch-states', [\App\Http\Controllers\HomeController::class, 'fetchState']);
     Route::post('api/fetch-cities', [\App\Http\Controllers\HomeController::class, 'fetchCity']);
+    Route::get('api/fetch-notifications', [\App\Http\Controllers\ActionController::class, 'get_latest_notifications']);
+    Route::get('api/fetch-notifications-count', [\App\Http\Controllers\ActionController::class, 'get_notifications_count']);
 
 });
 

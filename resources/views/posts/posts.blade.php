@@ -251,6 +251,9 @@
                     console.log("No data received from the server");
                 }
             },
+            error: function (xhr, status, error) {
+            console.log("An error occurred: " + error);
+        }
         });
     });
 </script>

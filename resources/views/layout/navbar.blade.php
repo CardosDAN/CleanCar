@@ -30,13 +30,13 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
                    data-bs-auto-close="outside" aria-expanded="false">
                     <i class="bx bx-bell bx-sm"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">5</span>
+                    <span id="notification_count" class="badge bg-danger rounded-pill badge-notifications"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end py-0">
                     <li class="dropdown-menu-header border-bottom">
                         <div class="dropdown-header d-flex align-items-center py-3">
                             <h5 class="text-body mb-0 me-auto">Notification</h5>
-                            <a href="javascript:void(0)" class="dropdown-notifications-all text-body"
+                            <a href="{{route('notifications.read_all')}}" class="dropdown-notifications-all text-body"
                                data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark all as read"><i
                                     class="bx fs-4 bx-envelope-open"></i></a>
                         </div>
@@ -44,26 +44,9 @@
                     <li class="dropdown-notifications-list overflow-auto ps ">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item list-group-item-action dropdown-notifications-item">
-{{--                                @if(auth()->user()->level_id == \App\Models\Levels::ADMIN)--}}
-{{--                                    @forelse($notifi as $notification)--}}
-{{--                                        <div class="alert alert-success" role="alert">--}}
-{{--                                            [{{ $notification->created_at }}] User {{ $notification->data['name'] }} ({{ $notification->data['email'] }}) has just registered.--}}
-{{--                                            <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">--}}
-{{--                                                Mark as read--}}
-{{--                                            </a>--}}
-{{--                                        </div>--}}
+                                <div id="notifications-container">
 
-{{--                                        @if($loop->last)--}}
-{{--                                            <a href="#" id="mark-all">--}}
-{{--                                                Mark all as read--}}
-{{--                                            </a>--}}
-{{--                                        @endif--}}
-{{--                                    @empty--}}
-{{--                                        There are no new notifications--}}
-{{--                                    @endforelse--}}
-{{--                                @else--}}
-{{--                                    You are logged in!--}}
-{{--                                @endif--}}
+                                </div>
                             </li>
                         </ul>
                         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -158,3 +141,104 @@
         </ul>
     </div>
 </nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function getNotifications() {
+        $.ajax({
+            url: "api/fetch-notifications",
+            type: "GET",
+            success: function (data) {
+                $('#notifications-container').html('');
+                data.forEach(function (notification) {
+                    let date = moment(notification.created_at).fromNow();
+                    if (notification.message.indexOf('deleted') > -1) {
+                        var toastClass = 'bg-danger';
+                        var icon = 'bx-x-circle';
+                        var coloricon = 'btn-danger';
+                    } else {
+                        var toastClass = 'bg-success';
+                        var icon = 'bx-check-circle';
+                        var coloricon = 'btn-success';
+                    }
+                    let toast = `<br>
+                    <div class="bs-toast toast fade show ${toastClass}" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast-header">
+                                            <a href="${notification.link}" class="btn ${coloricon} btn-sm">
+                                                <i class="bx ${icon} me-2"></i>
+                                            </a>
+                                            <div class="me-auto fw-semibold">${notification.message}</div>
+                                                <small>${date}</small>
+                                                <form method="POST" action="/notifications/${notification.id}/read">
+                                                    @csrf
+                                                    <button type="submit" class="btn-close btn-mark-as-read"  data-bs-dismiss="toast" aria-label="Close"></button>
+                                                </form>
+                                            </div>
+                                            <div class="toast-body">
+
+                                        </div>
+                                        </div>
+
+                    </div>`;
+                    $('#notifications-container').append(toast);
+                });
+            }
+        });
+    }
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            type: 'POST',
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (data) {
+                $(form).closest('.bs-toast').removeClass('bg-danger').addClass('bg-success');
+            }
+        });
+    });
+
+    function displayNotificationsCount() {
+        $.ajax({
+            url: "api/fetch-notifications-count",
+            type: "GET",
+            success: function (data) {
+                $("#notification_count").text(data);
+            }
+        });
+    }
+
+    setInterval(function () {
+        getNotifications();
+        displayNotificationsCount();
+    }, 5000);
+
+    $(document).on('click', '.btn-mark-as-read', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: "api/mark-as-read/" + id,
+            type: "GET",
+            success: function (data) {
+            },
+            error: function (xhr, status, error) {
+                console.log("An error occurred: " + error);
+            }
+        });
+    });
+
+    // function markAllAsRead() {
+    //     $('#mark-all-as-read-btn').click(function () {
+    //         $.ajax({
+    //             url: 'api/notifications/read-all',
+    //             type: 'GET',
+    //             success: function (response) {
+    //                 console.log(response);
+    //                 // update the notifications count
+    //                 // displayNotificationsCount();
+    //             }
+    //         });
+    //     });
+    // }
+    //TODO markAllAsRead trebuie facuta cu ajax
+</script>

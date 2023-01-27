@@ -77,7 +77,8 @@ class PostController extends Controller
             $image->product_id = $post->id;
             $image->save();
         }
-        return redirect()->route('posts.index')->with('success','The post has been created successfully.');
+        (new ActionController)->new_notification($post->user_id, 'Your post has been created', 'posts/'.$post->id);
+        return redirect()->route('posts.index')->with('status', 'Post created successfully');
     }
 
     /**
@@ -137,7 +138,7 @@ class PostController extends Controller
                 $image->save();
             }
         }
-
+        (new ActionController)->new_notification($post->user_id, 'Your post has been updated', 'posts/'.$post->id);
         return redirect()->route('posts.index');
     }
 
@@ -152,6 +153,7 @@ class PostController extends Controller
 
         $post->delete();
 
+        (new ActionController)->new_notification($post->user_id, 'Your post has been deleted', 'posts/'.$post->id);
         return redirect()->route('posts.index');
     }
 }
