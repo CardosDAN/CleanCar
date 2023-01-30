@@ -59,6 +59,8 @@ class OfferController extends Controller
         $offer->user_id = Auth::user()->id;
         $offer->post_id = $request->post_id;
         $offer->save();
+        (new ActionController)->new_notification($offer->user_id, 'Offer in', 'offer/'.$offer->post_id.'/edit');
+        (new ActionController)->new_notification($offer->post->user_id, 'New offer for your post', 'offer/'.$offer->id).'/edit';
         return back()->with('status', 'successfully added');
     }
 
@@ -82,7 +84,8 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
-        return view('offer.edit', compact('offer'));
+        $post = Post::with('images')->find($offer->post->id);
+        return view('offer.edit', compact('offer', 'post'));
     }
 
     /**
@@ -97,6 +100,8 @@ class OfferController extends Controller
         $offer->update([
             'price' => $request->input("price"),
         ]);
+        (new ActionController)->new_notification($offer->user_id, 'The offer has been updated', 'offer/'.$offer->id.'/edit');
+        (new ActionController)->new_notification($offer->post->user_id, 'The offer has been updated', 'offer/'.$offer->id.'/edit');
         return back()->with('status', 'Successfully updated');
     }
 
@@ -117,6 +122,7 @@ class OfferController extends Controller
     public function destroy(Offer $offer)
     {
         $offer->delete();
+        (new ActionController)->new_notification($offer->user_id, 'The offer has been deleted', 'posts/'.$offer->post_id);
 
         return back()->with('status', 'Successfully deleted');
     }

@@ -27,8 +27,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
     Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');
     Route::post('/notifications/{id}/read', [\App\Http\Controllers\ActionController::class, 'markAsRead']);
-    Route::get("api/notifications/read-all", [\App\Http\Controllers\ActionController::class, 'mark_all_as_read'])->name('notifications.read_all');
 
+    Route::get("api/notifications/read-all", [\App\Http\Controllers\ActionController::class, 'mark_all_as_read'])->name('notifications.read_all');
     Route::get('api/fetch-posts', [\App\Http\Controllers\HomeController::class, 'fetchPosts']);
     Route::post('api/fetch-states', [\App\Http\Controllers\HomeController::class, 'fetchState']);
     Route::post('api/fetch-cities', [\App\Http\Controllers\HomeController::class, 'fetchCity']);

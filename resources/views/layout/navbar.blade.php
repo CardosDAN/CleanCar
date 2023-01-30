@@ -226,19 +226,4 @@
             }
         });
     });
-
-    // function markAllAsRead() {
-    //     $('#mark-all-as-read-btn').click(function () {
-    //         $.ajax({
-    //             url: 'api/notifications/read-all',
-    //             type: 'GET',
-    //             success: function (response) {
-    //                 console.log(response);
-    //                 // update the notifications count
-    //                 // displayNotificationsCount();
-    //             }
-    //         });
-    //     });
-    // }
-    //TODO markAllAsRead trebuie facuta cu ajax
 </script>

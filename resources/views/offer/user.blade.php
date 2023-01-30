@@ -54,7 +54,7 @@
                                                  alt="Card image cap">
                                         @endforeach
                                         <p class="card-text">{{$offer->post->post_text}}</p>
-                                        <a href="{{route('offer.show',$offer)}}" class="card-link float-end">View</a>
+                                        <a href="{{route('offer.edit',$offer)}}" class="card-link float-end">View</a>
                                     </div>
                                 </div>
                             </div>

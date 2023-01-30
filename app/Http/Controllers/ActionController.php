@@ -10,14 +10,18 @@ use Illuminate\Support\Facades\DB;
 class ActionController extends Controller
 {
     public function accepted(Request $request){
+        $offer = Offer::find($request->id);
         $id = $request->id;
         DB::statement("UPDATE offers SET accepted = 1 where id =".$id);
-        return back()->with('status', 'Accepted successfully');
+            $this->new_notification($offer->user_id, 'Your offer has been accepted', 'offer/'.$offer->id.'/edit');
+        return back();
     }
 
     public function deleted(Request $request){
+        $offer = Offer::find($request->id);
         $id = $request->id;
         DB::statement("UPDATE offers SET deleted = 1 where id =".$id);
+        $this->new_notification($offer->user_id, 'Your offer has been deleted', 'offer/'.$offer->id.'/edit');
         return back()->with('status', 'Rejected with success');
     }
 
@@ -62,7 +66,6 @@ class ActionController extends Controller
         }
         return back();
     }
-    //TODO add notification for accepted offer and rejected offer and for new offer and for everything
 }
 
 

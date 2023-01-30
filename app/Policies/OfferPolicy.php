@@ -34,7 +34,7 @@ class OfferPolicy
      */
     public function view(User $user, Offer $offer)
     {
-        return auth()->user()->level_id === Levels::ADMIN || auth()->user()->level_id === Levels::MANAGER || auth()->user()->id === $offer->user_id
+        return auth()->user()->level_id === Levels::ADMIN || auth()->user()->level_id === Levels::MANAGER || auth()->user()->id === $offer->user_id || auth()->user()->id === $offer->post->user_id
             ? Response::allow()
             : Response::deny("You don't have aces to this", '403');
     }
@@ -61,7 +61,7 @@ class OfferPolicy
      */
     public function update(User $user, Offer $offer)
     {
-        return auth()->user()->id === $offer->user_id || auth()->user()->level_id === Levels::ADMIN || auth()->user()->level_id === Levels::MANAGER
+        return auth()->user()->id === $offer->user_id || auth()->user()->id === $offer->post->user_id || auth()->user()->level_id === Levels::ADMIN || auth()->user()->level_id === Levels::MANAGER
             ? Response::allow()
             : Response::deny("You don't have aces to this", '403');
     }
