@@ -33,6 +33,5 @@ return [
         'client_id' => '240230293886-7p2mqtvbcoos2ispp4te6ds12p7l5dgh.apps.googleusercontent.com',
         'client_secret' => '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',
         'redirect' => 'http://cleancar.local.com/callback/google',
-
     ],
 ];
