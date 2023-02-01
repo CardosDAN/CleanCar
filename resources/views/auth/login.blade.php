@@ -10,6 +10,18 @@
 >
 @include('layout.head')
 <link rel="stylesheet" href="{{asset('/assets/vendor/css/pages/page-auth.css')}}"/>
+<style>
+    .btn-label-google-plus {
+        color: #dd4b39;
+        border-color: rgba(0,0,0,0);
+        background: #fae2df;
+    }
+    .btn-label-facebook {
+        color: #3b5998;
+        border-color: rgba(0,0,0,0);
+        background: #e0e4ef;
+    }
+</style>
 <body>
 <!-- Content -->
 
@@ -140,14 +152,28 @@
                         <div class="mb-3">
                             <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Login') }}</button>
                         </div>
+{{--                        <a href="" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2">--}}
+{{--                            <strong>Google Login</strong>--}}
+{{--                        </a>--}}
                     </form>
-
                     <p class="text-center">
                         <span>{{__('New on our platform?')}}</span>
                         <a href="{{route('register')}}">
                             <span>{{__('Create an account')}}</span>
                         </a>
                     </p>
+                    <div class="divider my-4">
+                        <div class="divider-text">or</div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+                            <i class="tf-icons bx bxl-facebook"></i>
+                        </a>
+
+                        <a href="{{ url('auth/google') }}" class="btn btn-icon btn-label-google-plus me-3">
+                            <i class="tf-icon bx bxl-google-plus"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <!-- /Register -->

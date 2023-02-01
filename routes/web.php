@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleSocialiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::view('/', 'welcome')->name('landing');
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
 
 Route::group(['middleware' => ['auth']], function () {
 //    Route::get('user.settings', [])

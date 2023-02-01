@@ -10,7 +10,18 @@
 >
 @include('layout.head')
 <link rel="stylesheet" href="{{asset('/assets/vendor/css/pages/page-auth.css')}}"/>
-
+<style>
+    .btn-label-google-plus {
+        color: #dd4b39;
+        border-color: rgba(0,0,0,0);
+        background: #fae2df;
+    }
+    .btn-label-facebook {
+        color: #3b5998;
+        border-color: rgba(0,0,0,0);
+        background: #e0e4ef;
+    }
+</style>
 <body>
 <!-- Content -->
 
@@ -170,6 +181,18 @@
                             <span>{{__('Sign in instead')}}</span>
                         </a>
                     </p>
+                    <div class="divider my-4">
+                        <div class="divider-text">or</div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+                            <i class="tf-icons bx bxl-facebook"></i>
+                        </a>
+
+                        <a href="{{ url('auth/google') }}" class="btn btn-icon btn-label-google-plus me-3">
+                            <i class="tf-icon bx bxl-google-plus"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <!-- Register Card -->
