@@ -25,16 +25,16 @@
     <div class="layout-container">
         <!-- Menu -->
 
-    @include('layout.menu')
-    <!-- / Menu -->
+        @include('layout.menu')
+        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
             <!-- Navbar -->
 
-        @include('layout.navbar')
+            @include('layout.navbar')
 
-        <!-- / Navbar -->
+            <!-- / Navbar -->
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
@@ -43,7 +43,7 @@
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Offers /</span> All Offers</h4>
                     <div class="row">
-                        @foreach($user_offers as $offer)
+                        @foreach($offers as $offer)
                             <div class="col-md-6 col-lg-4 mb-3">
                                 <div class="card h-100">
                                     <div class="card-body">
@@ -54,7 +54,6 @@
                                                  alt="Card image cap">
                                         @endforeach
                                         <p class="card-text">{{$offer->post->post_text}}</p>
-                                        <p class="text-muted">{{$offer->user->name}}</p>
                                         <a href="{{route('offer.edit',$offer)}}" class="card-link float-end">View</a>
                                     </div>
                                 </div>
@@ -66,8 +65,8 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-            @include('layout.footer')
-            <!-- / Footer -->
+                @include('layout.footer')
+                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>

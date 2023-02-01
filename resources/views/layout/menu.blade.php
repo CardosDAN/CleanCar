@@ -147,7 +147,12 @@
                 <ul class="menu-sub">
                     <li class="menu-item">
                         <a href="{{route('posts_all')}}" class="menu-link">
-                            <div data-i18n="Without navbar">Posts</div>
+                            <div data-i18n="Without navbar">{{__("Posts")}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('offer.accepted')}}" class="menu-link">
+                            <div data-i18n="Without navbar">{{__("Accepted offers")}}</div>
                         </a>
                     </li>
                 </ul>

@@ -12,13 +12,9 @@ class ShowController extends Controller
 {
 
     public function offer(){
-        Paginator::useBootstrap();
         $user_offers = Offer::join('posts', 'posts.id', '=', 'offers.post_id')
             ->select('posts.*', 'offers.id', 'offers.post_id', 'offers.user_id',  'offers.price')
             ->where('posts.user_id', auth()->user()->id)->get();
-
-
-
         return view('offer.user', compact('user_offers'));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Levels;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
 use Dotenv\Validator;
@@ -86,8 +87,9 @@ class UserController extends Controller
     public function show(User $user)
     {
         Paginator::useBootstrap();
+        $notifications = Notification::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10);
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(6);
-        return view('user.account', compact('user',  'posts'));
+        return view('user.account', compact('user',  'posts', 'notifications'));
     }
 
     /**
@@ -98,8 +100,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Paginator::useBootstrap();
+        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(6);
         $levels = Levels::all();
-        return view('user.edit', compact('user', 'levels'));
+        return view('user.edit', compact('user', 'levels', 'posts'));
     }
 
     /**

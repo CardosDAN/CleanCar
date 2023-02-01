@@ -57,8 +57,8 @@
                         </div>
                     </li>
                     <li class="dropdown-menu-footer border-top">
-                        <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center p-3">
-                            View all notifications
+                        <a href="{{route('user.show',\Illuminate\Support\Facades\Auth::user())}}" class="dropdown-item d-flex justify-content-center p-3">
+                            {{__("View all notifications")}}
                         </a>
                     </li>
                 </ul>
@@ -101,15 +101,15 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}">
+                        <a class="dropdown-item" href="{{route('user.show',\Illuminate\Support\Facades\Auth::user())}}">
                             <i class="bx bx-user me-2"></i>
                             <span class="align-middle">{{__('My Profile')}}</span>
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}">
                             <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
+                            <span class="align-middle">{{__("Settings")}}</span>
                         </a>
                     </li>
                     <li>

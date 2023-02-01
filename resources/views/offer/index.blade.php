@@ -65,10 +65,10 @@
                                 @foreach($offers as $offer)
                                     <tr>
                                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                            <strong>{{$offer->post_id}}</strong></td>
+                                            <strong>{{$offer->post->title}}</strong></td>
                                         </td>
                                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                            <strong>{{$offer->user_id}}</strong></td>
+                                            <strong>{{$offer->user->name}}</strong></td>
                                         </td>
 
                                         <td>{{$offer->price}}</td>

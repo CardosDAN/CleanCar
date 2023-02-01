@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\{Country, State, City};
+use App\Models\{Country, Offer, State, City};
 
 class HomeController extends Controller
 {
@@ -31,6 +31,14 @@ class HomeController extends Controller
         $posts = Post::all();
         $categories = Category::all();
         return view('posts.posts',$data, compact('categories', 'posts'));
+    }
+
+    public function getAcceptedOffers()
+    {
+        $offers = Offer::where('user_id', auth()->user()->id)
+            ->where('accepted', 1)
+            ->get();
+        return view('offer.acceptedOffer', compact( 'offers'));
     }
 
     public function fetchPosts(Request $request)

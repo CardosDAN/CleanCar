@@ -103,7 +103,7 @@
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Total Task">Price
                                             </th>
-                                            @if($offer->post->user_id == auth()->user()->id)
+                                            @if($offer->post->user_id == auth()->user()->id && $offer->accepted === 0 && $offer->deleted === 0)
                                                 <th class="text-nowrap sorting_disabled"
                                                     aria-label="Total Task">Actions
                                                 </th>
@@ -122,7 +122,7 @@
                                                 </div>
                                             </td>
                                             <td class="" style=""> {{$offer->price}}</td>
-                                            @if($offer->post->user_id == auth()->user()->id)
+                                            @if($offer->post->user_id == auth()->user()->id && $offer->accepted === 0 && $offer->deleted === 0)
                                                 <td class="" style="">
                                                     <div class="row">
                                                         <div class="col">
@@ -142,7 +142,7 @@
 
                                         </tbody>
                                     </table>
-                                    @if($offer->accepted === 0)
+                                    @if($offer->accepted === 0 && $offer->deleted === 0)
                                         <form id="formAccountSettings" action="{{ route('offer.update', $offer) }}"
                                               method="POST" enctype="multipart/form-data">
                                             @method('PUT')
@@ -179,47 +179,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    @else
-                                        @if($offer->deleted === 0)
-                                            <form id="formAccountSettings" action="{{ route('offer.update', $offer) }}"
-                                                  method="POST" enctype="multipart/form-data">
-                                                @method('PUT')
-                                                @csrf
-                                                <div class=" ">
-                                                    <h5 class="card-header">Offer Details</h5>
-                                                    @if(session('status'))
-                                                        <div class="alert alert-success" role="alert">
-                                                            <h4 class="alert-heading"> {{session('status')}}</h4>
-                                                        </div>
-                                                    @endif
-                                                    <!-- Account -->
-                                                    @error('price')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                    <hr class="my-0"/>
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <label for="firstName"
-                                                                   class="form-label">{{__('Price')}}</label>
-                                                            <div class="col-md-8">
-                                                                <input
-                                                                    class="form-control @error('price') is-invalid @enderror"
-                                                                    type="text" id="firstName"
-                                                                    name="price" value="{{$offer->price}}" autofocus/>
-                                                            </div>
-                                                            <div class="col">
-                                                                <button type="submit" class="btn btn-primary me-2">Save
-                                                                    changes
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /Account -->
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        @endif
                                     @endif
-                                    //TODO trebuie sa nu imi arate butonul, formularu dupa ce am acceptat oferta
                                 </div>
                             </div>
                         </div>
