@@ -9,6 +9,7 @@
     data-template="vertical-menu-template-free"
 >
 @include('layout.head')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <body>
 <!-- Layout wrapper -->
@@ -87,7 +88,6 @@
                                             aria-label="Close"></button>
                                 </div>
                             @endif
-
                             <h5 class="card-header">{{__("Offers List")}}</h5>
                             <div class="table-responsive mb-3">
                                 <div id="DataTables_Table_0_wrapper"
@@ -169,6 +169,15 @@
                                                                 type="text" id="firstName"
                                                                 name="price" value="{{$offer->price}}" autofocus/>
                                                         </div>
+                                                        <div class="col-md-8 mt-2">
+                                                            <label for="firstName"
+                                                                   class="form-label">{{__('Finish time')}}</label>
+                                                            <input type="text"
+                                                                   class="form-control datepicker @error('end_time') is-invalid @enderror"
+                                                                   value="{{$offer->end_time}}" name="end_time"
+                                                                   data-date-format="m/d/Y G:iK"
+                                                                   data-enable-time="true">
+                                                        </div>
                                                         <div class="col">
                                                             <button type="submit" class="btn btn-primary me-2">Save
                                                                 changes
@@ -186,7 +195,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Footer -->
             @include('layout.footer')
             <!-- / Footer -->
@@ -202,6 +210,16 @@
 <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    $('.datepicker').flatpickr({
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+        todayHighlight: true,
+        time_24hr: true,
+    });
+</script>
 @include('layout.script')
 </body>
 </html>

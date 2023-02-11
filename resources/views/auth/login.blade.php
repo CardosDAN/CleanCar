@@ -152,9 +152,6 @@
                         <div class="mb-3">
                             <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Login') }}</button>
                         </div>
-{{--                        <a href="" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2">--}}
-{{--                            <strong>Google Login</strong>--}}
-{{--                        </a>--}}
                     </form>
                     <p class="text-center">
                         <span>{{__('New on our platform?')}}</span>

@@ -53,9 +53,11 @@ class OfferController extends Controller
     {
         $this->validate($request, [
             'price' => 'required|numeric',
+            'end_time' => 'required|date|after:today',
         ]);
         $offer = new Offer();
         $offer->price = $request->price;
+        $offer->end_time = $request->end_time;
         $offer->user_id = Auth::user()->id;
         $offer->post_id = $request->post_id;
         $offer->save();
@@ -99,6 +101,7 @@ class OfferController extends Controller
     {
         $offer->update([
             'price' => $request->input("price"),
+            'end_time' => $request->input("end_time"),
         ]);
         (new ActionController)->new_notification($offer->user_id, 'The offer has been updated', 'offer/'.$offer->id.'/edit');
         (new ActionController)->new_notification($offer->post->user_id, 'The offer has been updated', 'offer/'.$offer->id.'/edit');

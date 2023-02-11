@@ -99,9 +99,6 @@
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Total Task">Phone nr
                                             </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1"
-                                               aria-label="Hours">Address
-                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -121,20 +118,12 @@
                                                         <small class="mb-1">{{$post->phone}}</small>
                                                     </div>
                                                 </td>
-                                                <td class="" style="">{{$post->address}}</td>
                                         </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-5  mb-3 shadow-lg rounded">
-                            <div class="divider"></div>
-                            <?php
-                            echo '<iframe frameborder="0" height="320" width="470"
-                                 src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=' . str_replace(",", "", str_replace(" ", "+", $post->address)) . '&z=14&output=embed"></iframe>'; ?>
-                            <div class="divider"></div>
                         </div>
                     </div>
                 </div>

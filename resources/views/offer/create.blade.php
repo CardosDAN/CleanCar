@@ -1,26 +1,25 @@
-
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default"
       data-assets-path="../assets/" data-template="vertical-menu-template-free">
 @include('layout.head')
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
 
-    @include('layout.menu')
-    <!-- / Menu -->
+        @include('layout.menu')
+        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
             <!-- Navbar -->
 
-        @include('layout.navbar')
+            @include('layout.navbar')
 
-        <!-- / Navbar -->
+            <!-- / Navbar -->
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
@@ -44,6 +43,7 @@
                                     <!-- Account -->
                                     <div class="card-body">
                                         <div class="row">
+
                                             <?php $post_id = $_GET['post_id']; ?>
                                             <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
                                             <div class="mb-3 col-md-6">
@@ -52,53 +52,78 @@
                                                        type="number" id="email"
                                                        name="price"
                                                 />
-                                                <span>
+
                                                 @error('price')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                <strong>{{ $message }}</strong>
-                                                </span>
+                                                <span>
+                                                    <div
+                                                        class="alert alert-danger">{{ $message }}</div><strong>{{ $message }}</strong></span>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">{{__('End date')}}</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control datepicker"  name="end_time"  data-date-format="m/d/Y G:iK" data-enable-time="true">
+                                                @error('end_time')
+                                                <span>
+                                                    <div
+                                                        class="alert alert-danger">{{ $message }}</div><strong>{{ $message }}</strong></span>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="mt-2">
-                                            <button type="submit" class="btn btn-primary me-2">Save
-                                                changes
-                                            </button>
-                                            <button type="reset"
-                                                    class="btn btn-outline-secondary">Cancel
-                                            </button>
-                                        </div>
+
 
                                     </div>
-                                    <!-- /Account -->
-                                </div>
-                            </form>
+                                    <div class="m-4 float-end">
+                                        <button type="submit" class="btn btn-primary me-2">Save
+                                            changes
+                                        </button>
+                                        <button type="reset"
+                                                class="btn btn-outline-secondary">Cancel
+                                        </button>
+                                    </div>
 
+                                </div>
+                                <!-- /Account -->
+                            </form>
                         </div>
+
+
                     </div>
                 </div>
-                <!-- / Content -->
+            </div>
+            <!-- / Content -->
 
-                <!-- Footer -->
+            <!-- Footer -->
             @include('layout.footer')
             <!-- / Footer -->
 
-                <div class="content-backdrop fade"></div>
-            </div>
-            <!-- Content wrapper -->
+            <div class="content-backdrop fade"></div>
         </div>
-        <!-- / Layout page -->
+        <!-- Content wrapper -->
     </div>
-
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+    <!-- / Layout page -->
 </div>
+
+<!-- Overlay -->
+<div class="layout-overlay layout-menu-toggle"></div>
 <!-- / Layout wrapper -->
 
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 @include('layout.script')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    $('.datepicker').flatpickr({
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+        todayHighlight: true,
+        time_24hr: true,
+    });
+</script>
 </body>
 
 </html>
