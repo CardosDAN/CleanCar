@@ -106,6 +106,11 @@
                             <div data-i18n="Without navbar">Offers</div>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="{{ route('rating.index') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Rating</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endif

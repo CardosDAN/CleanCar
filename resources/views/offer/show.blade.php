@@ -103,8 +103,8 @@
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Total Task">Price
                                             </th>
-                                            <th class="text-nowrap sorting_disabled"
-                                                aria-label="Total Task">Actions
+                                            <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
+                                                aria-label="Total Task">Completion date
                                             </th>
                                         </tr>
                                         </thead>
@@ -120,33 +120,13 @@
                                                 </div>
                                             </td>
                                             <td class="" style=""> {{$offer->price}}</td>
-                                            <td class="" style="">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        @if($offer->accepted == 0)
-                                                            <a class="btn btn-outline-success"
-                                                               href="{{route('offer.accept', $offer->id)}}">{{__("Accept")}}</a>
-                                                        @endif
-                                                        @if($offer->deleted == 0)
-                                                            <a class="btn btn-outline-danger"
-                                                               href="{{route('offer.delete', $offer->id)}}">{{__("Reject")}}</a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <td class="" style=""> {{$offer->end_time}}</td>
                                         </tr>
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 mb-3 shadow-lg rounded">
-                            <div class="divider"></div>
-                            <?php
-                            echo '<iframe frameborder="0" height="350" width="990"
-                                 src="https://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=' . str_replace(",", "", str_replace(" ", "+", $offer->post->address)) . '&z=14&output=embed"></iframe>'; ?>
-                            <div class="divider"></div>
                         </div>
                     </div>
                 </div>

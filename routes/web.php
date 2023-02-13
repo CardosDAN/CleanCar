@@ -18,7 +18,7 @@ Route::view('/', 'welcome')->name('landing');
 Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
 Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
 //    Route::get('user.settings', [])
     Route::view('/home', 'index')->name('home');
     Route::view('/test', 'test')->name('test');
@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('offer.accept/{id}', [\App\Http\Controllers\ActionController::class, 'accepted'])->name('offer.accept');
     Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
     Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');
+    Route::get('rating.worker_rating/{user_id}', [\App\Http\Controllers\ShowController::class, 'ratings_user'])->name('rating.worker_rating');
     Route::get('offer.accepted', [\App\Http\Controllers\HomeController::class, 'getAcceptedOffers'])->name('offer.accepted');
 
 

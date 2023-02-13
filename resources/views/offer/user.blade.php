@@ -27,16 +27,16 @@
     <div class="layout-container">
         <!-- Menu -->
 
-    @include('layout.menu')
-    <!-- / Menu -->
+        @include('layout.menu')
+        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
             <!-- Navbar -->
 
-        @include('layout.navbar')
+            @include('layout.navbar')
 
-        <!-- / Navbar -->
+            <!-- / Navbar -->
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
@@ -57,10 +57,13 @@
                                         @endforeach
                                         <p class="card-text">{{$offer->post->post_text}}</p>
                                         <p class="text-muted">{{$offer->user->name}}</p>
-                                        <a href="{{route('offer.edit',$offer)}}" class="card-link float-end">View</a>
-                                        <a href="{{route('rating.create')}}" class="card-link float-end">Check Offer</a>
-                                        <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalCenter"> Check Offer
-                                        </button>
+                                        <a href="{{route('offer.edit',$offer)}}"
+                                           class="btn btn-outline-primary float-end">{{__("View")}}</a>
+                                        @if($offer->end_time == \Carbon\Carbon::now())
+                                            <button class="btn btn-outline-secondary float-end" data-bs-toggle="modal"
+                                                    data-bs-target="#modalCenter"> {{__("Check Offer")}}
+                                            </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +75,8 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="modalCenterTitle">{{__("Job completed")}}</h5>
+                                                    <h5 class="modal-title"
+                                                        id="modalCenterTitle">{{__("Job completed")}}</h5>
                                                     <button
                                                         type="button"
                                                         class="btn-close"
@@ -80,36 +84,36 @@
                                                         aria-label="Close"
                                                     ></button>
                                                 </div>
-                                                @if($offer->end_time <= \Carbon\Carbon::now())
-                                                    <form action="{{route('rating.store')}}" method="POST">
-                                                        @csrf
-                                                        <div class="modal-body">
-                                                            <div class="rateyo" id="rating"
-                                                                 data-rateyo-rating="0"
-                                                                 data-rateyo-num-stars="5"
-                                                                 data-rateyo-score="3">
-                                                            </div>
-                                                            <br>
-                                                            <span class='result'>Rating: 0</span>
-                                                            <input type="hidden" name="rating">
-                                                            <input type="hidden" name="user_id" value="{{$offer->user_id}}">
-                                                            <div class="divider"></div>
-                                                            <label for="exampleFormControlTextarea1">{{__("Write a comment about the job completion")}}</label>
-                                                            <textarea class="form-control  @error('comment') is-invalid @enderror" type="text" name="comment" id="exampleFormControlTextarea1" placeholder="Review" rows="3"></textarea>
+                                                <form action="{{route('rating.store')}}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <div class="rateyo" id="rating"
+                                                             data-rateyo-rating="0"
+                                                             data-rateyo-num-stars="5"
+                                                             data-rateyo-score="3">
                                                         </div>
+                                                        <div class="divider"></div>
+                                                        <span class='result'>Stars: 0</span>
+                                                        <input type="hidden" name="rating">
+                                                        <input type="hidden" name="user_id" value="{{$offer->user_id}}">
+                                                        <div class="divider"></div>
+                                                        <label
+                                                            for="exampleFormControlTextarea1">{{__("Write a comment about the job completion")}}</label>
+                                                        <textarea
+                                                            class="form-control  @error('comment') is-invalid @enderror"
+                                                            type="text" name="comment" id="exampleFormControlTextarea1"
+                                                            placeholder="Review" rows="3"></textarea>
+                                                    </div>
 
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                                                {{__("Close")}}
-                                                            </button>
-                                                            <button type="submit" class="btn btn-primary">{{__("Send")}}</button>
-                                                        </div>
-                                                    </form>
-                                                    @else
-                                                    <img class="col-md-12"
-                                                         src="{{asset('../assets/img/illustrations/Tiny comic man running in hurry doing job on clock dial.jpg')}}"--}}
-                                                         alt="image"/>
-                                                @endif
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            {{__("Close")}}
+                                                        </button>
+                                                        <button type="submit"
+                                                                class="btn btn-primary">{{__("Send")}}</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -122,8 +126,8 @@
                 <!-- / Content -->
 
                 <!-- Footer -->
-            @include('layout.footer')
-            <!-- / Footer -->
+                @include('layout.footer')
+                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>

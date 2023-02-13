@@ -116,8 +116,9 @@
                                             <td class="sorting_1">
 
                                                 <div class="d-flex justify-content-left align-items-center">
-                                                    <div class="d-flex flex-column"><span
-                                                            class="text-truncate fw-semibold">{{$offer->user->name}}</span>
+                                                    <div class="d-flex flex-column">
+                                                        <a href="{{route('rating.worker_rating', $offer->user->id)}}"
+                                                            class="text-truncate fw-semibold">{{$offer->user->name}}</a>
                                                     </div>
                                                 </div>
                                             </td>

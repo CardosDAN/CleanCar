@@ -212,7 +212,7 @@
     setInterval(function () {
         getNotifications();
         displayNotificationsCount();
-    }, 5000);
+    }, 60000);
 
     $(document).on('click', '.btn-mark-as-read', function () {
         var id = $(this).data('id');
