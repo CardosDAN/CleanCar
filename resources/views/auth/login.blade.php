@@ -16,8 +16,8 @@
         border-color: rgba(0,0,0,0);
         background: #fae2df;
     }
-    .btn-label-facebook {
-        color: #3b5998;
+    .btn-label-github {
+        color: purple;
         border-color: rgba(0,0,0,0);
         background: #e0e4ef;
     }
@@ -163,8 +163,8 @@
                         <div class="divider-text">or</div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
-                            <i class="tf-icons bx bxl-facebook"></i>
+                        <a href="{{ url('auth/github') }}" class="btn btn-icon btn-label-github me-3">
+                            <i class="tf-icons bx bxl-github"></i>
                         </a>
 
                         <a href="{{ url('auth/google') }}" class="btn btn-icon btn-label-google-plus me-3">
