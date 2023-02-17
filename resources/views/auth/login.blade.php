@@ -21,6 +21,11 @@
         border-color: rgba(0,0,0,0);
         background: #e0e4ef;
     }
+    .btn-label-facebook {
+        color: #3b5998;
+        border-color: rgba(0,0,0,0);
+        background: #e6eaf5;
+    }
 </style>
 <body>
 <!-- Content -->
@@ -169,6 +174,9 @@
 
                         <a href="{{ url('auth/google') }}" class="btn btn-icon btn-label-google-plus me-3">
                             <i class="tf-icon bx bxl-google-plus"></i>
+                        </a>
+                        <a href="{{ url('auth/facebook') }}" class="btn btn-icon btn-label-facebook me-3">
+                            <i class="tf-icon bx bxl-facebook"></i>
                         </a>
                     </div>
                 </div>

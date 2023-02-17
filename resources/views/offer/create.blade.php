@@ -31,19 +31,25 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            @if(session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    <h4 class="alert-heading"> {{session('status')}}</h4>
-                                </div>
-                            @endif
                             <form id="formAccountSettings" action="{{ route('offer.store') }}" method="POST">
                                 @csrf
                                 <div class="card mb-4">
                                     <h5 class="card-header">{{__("Offer Details")}}</h5>
                                     <!-- Account -->
-                                    <div class="card-body">
-                                        <div class="row">
 
+                                    <div class="card-body">
+                                            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="successMessage"></h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <div class="divider"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row">
                                             <?php $post_id = $_GET['post_id']; ?>
                                             <input type="hidden" name="post_id" value="<?php echo $post_id ?>">
                                             <div class="mb-3 col-md-6">
@@ -124,6 +130,14 @@
         time_24hr: true,
     });
 </script>
+@if(session('status'))
+    <script>
+        $(document).ready(function() {
+            $('#successMessage').text('{{ session('status') }}');
+            $('#successModal').modal('show');
+        });
+    </script>
+@endif
 </body>
 
 </html>

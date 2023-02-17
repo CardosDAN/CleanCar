@@ -135,6 +135,11 @@
                             <div data-i18n="Without navbar">Add Post</div>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="{{ route('posts.user') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Posts</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endif

@@ -55,6 +55,9 @@ class OfferController extends Controller
             'price' => 'required|numeric',
             'end_time' => 'required|date|after:today',
         ]);
+        if (Offer::where('post_id', $request->post_id)->where('user_id', Auth::user()->id)->exists()) {
+            return back()->with('status', 'You have already made an offer for this post');
+        }
         $offer = new Offer();
         $offer->price = $request->price;
         $offer->end_time = $request->end_time;

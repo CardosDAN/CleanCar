@@ -18,6 +18,26 @@
     .content-wrapper {
         padding-bottom: 0px !important;
     }
+    .btn-label-google-plus {
+        color: #dd4b39;
+        border-color: rgba(0,0,0,0);
+        background: #fae2df;
+    }
+    .btn-label-github {
+        color: purple;
+        border-color: rgba(0,0,0,0);
+        background: #e0e4ef;
+    }
+    .btn-label-facebook {
+        color: #3b5998;
+        border-color: rgba(0,0,0,0);
+        background: #e6eaf5;
+    }
+    .btn-label-log{
+        color: lightslategray;
+        border-color: rgba(0,0,0,0);
+        background: #e6eaf5;
+    }
 </style>
 <body>
 <!-- Layout wrapper -->
@@ -45,7 +65,7 @@
 
 
                     <h4 class="fw-bold py-3 mb-4">
-                        <span class="text-muted fw-light">{{__("User / View /")}}</span> {{__("Security")}}
+                        <span class="text-muted fw-light">{{__("User / View /")}}</span> {{__("Account")}}
                     </h4>
                     <div class="row">
                         <!-- User Sidebar -->
@@ -147,8 +167,8 @@
                                             </li>
                                         </ul>
                                         <div class="d-flex justify-content-center pt-3">
-                                            <a href="{{route('user.edit',$user)}}" class="btn btn-primary me-3"
-                                               data-bs-target="#editUser">Edit</a>
+                                            <a href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}"
+                                               class="btn btn-primary me-3">Edit</a>
                                             <a href="javascript:;"
                                                class="btn btn-label-danger suspend-user">Suspended</a>
                                         </div>
@@ -162,107 +182,110 @@
                         <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
                             <!-- User Pills -->
                             <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                                <li class="nav-item"><a class="nav-link " href="{{route('user.show',\Illuminate\Support\Facades\Auth::user())}}"><i
-                                            class="bx bx-user me-1"></i>Account</a></li>
-                                <li class="nav-item"><a class="nav-link active" href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}"><i
-                                            class="bx bx-lock-alt me-1 "></i>Security</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{route('user.connections', \Illuminate\Support\Facades\Auth::user())}}"><i
+                                <li class="nav-item"><a class="nav-link "
+                                                        href="{{route('user.show',\Illuminate\Support\Facades\Auth::user())}}"><i
+                                            class="bx bx-user me-1"></i>{{__("Account")}}</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}"><i
+                                            class="bx bx-lock-alt me-1"></i>{{__("Security")}}</a></li>
+                                <li class="nav-item"><a class="nav-link active"
+                                                        href="{{route('user.connections', \Illuminate\Support\Facades\Auth::user())}}"><i
                                             class="bx bx-link-alt me-1"></i>Connections</a></li>
                             </ul>
                             <!--/ User Pills -->
-
-                            <!-- Activity Timeline -->
                             <div class="card mb-4">
-                                <h5 class="card-header">Profile Details</h5>
-                                <!-- Account -->
-                                <form id="formAccountSettings" method="POST" action="{{ route('user.update', $user) }}"
-                                      enctype="multipart/form-data">
-                                    @method('PUT')
-                                    @csrf
+                                <div class="card">
+                                    <h5 class="card-header">{{__("Connected Accounts")}}</h5>
                                     <div class="card-body">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <div class="button-wrapper">
-                                                <label><h4>{{__('Add image')}}</h4></label>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="image">
 
-                                                            <input type="file" class="form-control" name="image"
-                                                                   multiple>
-                                                        </div>
+                                        <p>{{__("Connect with other accounts")}}</p>
+                                        <!-- Connections -->
+
+                                        <div class="d-flex mb-3">
+                                            <div class="flex-shrink-0">
+                                                <img src="{{asset('../assets/img/icons/brands/google.png')}}"
+                                                     alt="google" class="me-3" height="30">
+                                            </div>
+                                            <div class="flex-grow-1 row">
+                                                <div class="col-9 mb-sm-0 mb-2">
+                                                    <h6 class="mb-0">Google</h6>
+                                                </div>
+                                                <div class="col-3 text-end">
+                                                    <div class="form-check form-switch">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->google_id != null)
+                                                            <a href="{{route('disconnect.google', \Illuminate\Support\Facades\Auth::user()->id)}}" class="btn btn-icon me-3 btn-label-log">
+                                                                <i class="tf-icon bx bx-log-out"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ url('auth/google') }}" class="btn btn-icon btn-label-google-plus me-3">
+                                                                <i class="tf-icon bx bxl-google-plus"></i>
+                                                            </a>
+                                                        @endif
                                                     </div>
                                                 </div>
-                                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <hr class="my-0"/>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="mb-3 col-md-6">
-                                                <label for="firstName" class="form-label">{{__('Name')}}</label>
-                                                <input
-                                                    class="form-control"
-                                                    type="text"
-                                                    id="firstName"
-                                                    name="name"
-                                                    value="{{$user->name}}"
-                                                    autofocus
-                                                />
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="email" class="form-label">{{__('E-mail')}}</label>
-                                                <input
-                                                    class="form-control"
-                                                    type="email"
-                                                    id="email"
-                                                    name="email"
-                                                    value="{{$user->email}}"
-                                                    placeholder="john.doe@example.com"
-                                                />
-                                            </div>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->level_id == 4)
-                                                <div class="mb-3 col-md-6">
-                                                    <label class="form-label" for="country">{{__('Level')}}</label>
-                                                    <select id="country" name="level_id" class="select2 form-select">
-                                                        @foreach($levels as $level)
-                                                            <option value="{{$level->id}}">{{$level->level_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <div class="mt-2">
-                                            <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /Activity Timeline -->
 
-                    </div>
-                        <div class="col-xl-12 col-lg-7 col-md-7 order-0 order-md-1">
-                            <div class="card">
-                                <h5 class="card-header">{{__("Delete Account")}}</h5>
-                                <div class="card-body">
-                                    <div class="mb-3 col-12 mb-0">
-                                        <div class="alert alert-warning">
-                                            <h6 class="alert-heading fw-bold mb-1">{{__("Are you sure you want to delete your account?")}}</h6>
-                                            <p class="mb-0">{{__("Once you delete your account, there is no going back. Please be certain.")}}</p>
+                                        <div class="d-flex mb-3">
+                                            <div class="flex-shrink-0">
+                                                <img src="{{asset('../assets/img/icons/brands/github.png')}}"
+                                                     alt="github" class="me-3" height="30">
+                                            </div>
+                                            <div class="flex-grow-1 row">
+                                                <div class="col-9 mb-sm-0 mb-2">
+                                                    <h6 class="mb-0">Github</h6>
+                                                </div>
+                                                <div class="col-3 text-end">
+                                                    <div class="form-check form-switch">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->github_id != null)
+                                                            <a href="{{route('disconnect.github', \Illuminate\Support\Facades\Auth::user()->id)}}" class="btn btn-icon me-3 btn-label-log">
+                                                                <i class="tf-icons bx bx-log-out"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ url('auth/github') }}" class="btn btn-icon btn-label-github me-3">
+                                                                <i class="tf-icons bx bxl-github"></i>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div class="d-flex mb-3">
+                                            <div class="flex-shrink-0">
+                                                <img src="{{asset('../assets/img/icons/brands/facebook.png')}}"
+                                                     alt="facebook" class="me-3" height="30">
+                                            </div>
+                                            <div class="flex-grow-1 row">
+                                                <div class="col-9 mb-sm-0 mb-2">
+                                                    <h6 class="mb-0">Facebook</h6>
+                                                </div>
+                                                <div class="col-3 text-end">
+                                                    <div class="form-check form-switch">
+                                                        @if(\Illuminate\Support\Facades\Auth::user()->facebook_id != null)
+                                                            <a href="{{route('disconnect.facebook', \Illuminate\Support\Facades\Auth::user()->id)}}" class="btn btn-icon btn-label-log me-3">
+                                                                <i class="tf-icon bx bx-log-out"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ url('auth/facebook') }}" class="btn btn-icon btn-label-facebook me-3">
+                                                                <i class="tf-icon bx bxl-facebook"></i>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- /Connections -->
+
                                     </div>
-                                    <form id="formAccountDeactivation" method="POST" action="{{route('user.destroy', $user)}}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger deactivate-account">{{__("Deactivate Account")}}</button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    <!--/ Add New Credit Card Modal -->
 
-                    <!-- /Modal -->
+                        </div>
+
+                        <!--/ User Content -->
+                    </div>
 
                 </div>
                 <!-- / Content -->

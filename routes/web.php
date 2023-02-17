@@ -20,10 +20,14 @@ Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']
 Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
 Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
 Route::get('callback/github', [GitHubController::class, 'gitCallback']);
+Route::get('auth/facebook', [\App\Http\Controllers\Auth\FacebookController::class, 'facebookRedirect']);
+Route::get('callback/facebook', [\App\Http\Controllers\Auth\FacebookController::class, 'loginWithFacebook']);
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-//    Route::get('user.settings', [])
-    Route::view('/home', 'index')->name('home');
+    Route::get('/home', [\App\Http\Controllers\DashboardController::class, 'index'])->name('home');
+    Route::get('/reports/active-users',[ \App\Http\Controllers\DashboardController::class,'activeUsers']);
+
     Route::view('/test', 'test')->name('test');
     Route::get('posts.posts', [\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
@@ -36,6 +40,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');
     Route::get('rating.worker_rating/{user_id}', [\App\Http\Controllers\ShowController::class, 'ratings_user'])->name('rating.worker_rating');
     Route::get('offer.accepted', [\App\Http\Controllers\HomeController::class, 'getAcceptedOffers'])->name('offer.accepted');
+    Route::get('posts.user', [\App\Http\Controllers\ShowController::class, 'user_posts'])->name('posts.user');
+
+    Route::get('user.connections/{user_id}', [\App\Http\Controllers\ShowController::class, 'connections'])->name('user.connections');
+    Route::post('disconnect.google/{id}', [\App\Http\Controllers\ActionController::class, 'disconnect_google'])->name('disconnect.google');
+    Route::post('disconnect.github/{id}', [\App\Http\Controllers\ActionController::class, 'disconnect_github'])->name('disconnect.github');
+    Route::post('disconnect.facebook/{id}', [\App\Http\Controllers\ActionController::class, 'disconnect_facebook'])->name('disconnect.facebook');
+    Route::post('posts.share/{id}', [\App\Http\Controllers\ActionController::class, 'shareOnFacebook'])->name('posts.share');
 
 
     Route::post('/notifications/{id}/read', [\App\Http\Controllers\ActionController::class, 'markAsRead']);

@@ -16,24 +16,21 @@
     <div class="layout-container">
         <!-- Menu -->
 
-    @include('layout.menu')
-    <!-- / Menu -->
+        @include('layout.menu')
+        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
             <!-- Navbar -->
 
-        @include('layout.navbar')
+            @include('layout.navbar')
 
-        <!-- / Navbar -->
+            <!-- / Navbar -->
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
                 <!-- / Content -->
-                <div class="container-fluid">
-                    <a class="btn btn-primary float-end mt-3" href="{{route('offer.create','post_id='.$post->id)}}">{{__("Offer")}}</a>
-                </div>
                 <div class="container m-4">
                     <div class="row justify-content-between">
                         <div class="col-md-5  mb-3 shadow-lg rounded">
@@ -70,7 +67,8 @@
                                     <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-time me-2"></i>
                                         {{$post->created_at->diffForHumans()}}
-                                    </li>  <li class="list-group-item d-flex align-items-center">
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
                                         <i class="bx bx-phone-call me-2"></i>
                                         {{$post->phone}}
                                     </li>
@@ -78,23 +76,35 @@
                                 <h3 class="text-lighter fw-semibold"> {{__("Description")}}</h3>
                                 <p class="text-center fw-lighter">{{$post->post_text}}</p>
                             </div>
+
                             <div class="divider"></div>
+                            <div class="card-footer float-end">
+                                <a class="btn btn-primary  mt-3"
+                                   href="{{route('offer.create','post_id='.$post->id)}}">{{__("Make a Offer")}}</a>
+                                <a class="btn btn-secondary mt-3"
+                                   href="{{route('posts.edit',$post->id)}}">{{__("Edit")}}</a>
+                                @if(\Illuminate\Support\Facades\Auth::user()->facebook_id != null)
+                                    <a class="btn btn-secondary mt-3"
+                                   href="{{route('posts.share',$post->id)}}">{{__("Share on Facebook")}}</a>
+                                @endif
+                            </div>
                         </div>
                         <div class="col-md-6 m-lg-auto shadow-lg ">
+
                             <h5 class="card-header">{{__("User's Posts List")}}</h5>
                             <div class="table-responsive mb-3">
                                 <div id="DataTables_Table_0_wrapper"
                                      class="dataTables_wrapper dt-bootstrap5 no-footer">
                                     <table class="table datatable-project border-top dataTable no-footer dtr-column"
                                            id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info"
-                                           >
+                                    >
                                         <thead>
                                         <tr>
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Total Task">Title
                                             </th>
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
-                                                 aria-label="Total Task">Description
+                                                aria-label="Total Task">Description
                                             </th>
                                             <th class="text-nowrap sorting_disabled" rowspan="1" colspan="1"
                                                 aria-label="Total Task">Phone nr
@@ -130,8 +140,8 @@
             </div>
 
             <!-- Footer -->
-        @include('layout.footer')
-        <!-- / Footer -->
+            @include('layout.footer')
+            <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
         </div>

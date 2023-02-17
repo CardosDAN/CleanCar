@@ -20,10 +20,12 @@ class GitHubController extends Controller
 
             $user = Socialite::driver('github')->user();
 
-            $searchUser = User::where('github_id', $user->id)->first();
+            $searchUser = User::where('email', $user->email)->first();
 
             if($searchUser){
-
+                $searchUser->update([
+                    'github_id' => $user->id,
+                ]);
                 Auth::login($searchUser);
 
                 return redirect('home');
@@ -33,7 +35,6 @@ class GitHubController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'github_id'=> $user->id,
-                    'social_type'=> 'github',
                     'email_verified_at' => now(),
                     'password' => encrypt('github12345')
                 ]);

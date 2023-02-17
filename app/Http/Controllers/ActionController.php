@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Offer;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Socialite\Facades\Socialite;
 
 class ActionController extends Controller
 {
@@ -65,6 +69,36 @@ class ActionController extends Controller
             $notification->save();
         }
         return back();
+    }
+    public function disconnect_google($id): \Illuminate\Http\RedirectResponse
+    {
+        User::where('id', $id)->update(['google_id' => null]);
+        return back();
+    }
+    public function disconnect_github($id): \Illuminate\Http\RedirectResponse
+    {
+        User::where('id', $id)->update(['github_id' => null]);
+        return back();
+    }
+    public function disconnect_facebook($id): \Illuminate\Http\RedirectResponse
+    {
+        User::where('id', $id)->update(['facebook_id' => null]);
+        return back();
+    }
+    public function shareOnFacebook($id)
+    {
+        $post = Post::find($id);
+        $link = url('post/'.$post->id);
+        $caption = $post->title;
+        $description = $post->description;
+        $picture = url('storage/'.$post->image);;
+
+        $response = Socialite::driver('facebook')->share([
+            'href' => $link,
+            'caption' => $caption,
+            'description' => $description,
+            'picture' => $picture,
+        ]);
     }
 }
 

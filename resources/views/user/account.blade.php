@@ -166,7 +166,7 @@
                                             class="bx bx-user me-1"></i>{{__("Account")}}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}"><i
                                             class="bx bx-lock-alt me-1"></i>{{__("Security")}}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="app-user-view-connections.html"><i
+                                <li class="nav-item"><a class="nav-link" href="{{route('user.connections', \Illuminate\Support\Facades\Auth::user())}}"><i
                                             class="bx bx-link-alt me-1"></i>Connections</a></li>
                             </ul>
                             <!--/ User Pills -->
