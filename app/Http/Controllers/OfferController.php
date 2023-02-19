@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Offer;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,10 @@ class OfferController extends Controller
         ]);
         if (Offer::where('post_id', $request->post_id)->where('user_id', Auth::user()->id)->exists()) {
             return back()->with('status', 'You have already made an offer for this post');
+        }
+        if(Offer::where('end_time', Carbon::now())->where('post_id', $request->post_id)->exists()) {
+            Offer::update(['completed' => 1]);
+            return back()->with('status', 'The offer has expired');
         }
         $offer = new Offer();
         $offer->price = $request->price;

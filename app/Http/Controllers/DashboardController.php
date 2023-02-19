@@ -18,8 +18,64 @@ class DashboardController extends Controller
         $posts_count = Post::count();
         $offers_count = Offer::count();
         $rating_count = Rating::count();
-        return view('index', compact('user_count', 'posts_count', 'offers_count', 'rating_count'));
+        $facebookCount = User::whereNotNull('facebook_id')->count();
+        $googleCount = User::whereNotNull('google_id')->count();
+        $githubCount = User::whereNotNull('github_id')->count();
+        $user_level_count = User::where('level_id', '1')->count();
+        $worker_level_count = User::where('level_id', '3')->count();
+        $manager_level_count = User::where('level_id', '2')->count();
+        $admin_level_count = User::where('level_id', '4')->count();
+
+        $data = Offer::select('end_time')
+            ->where('completed', 1)
+            ->get()
+            ->groupBy(function ($date) {
+                return Carbon::parse($date->end_time)->format('Y-m');
+            });
+
+        $chartData = [];
+        foreach ($data as $month => $value) {
+            $chartData['labels'][] = $month;
+            $chartData['data'][] = count($value);
+        }
+
+
+        $users = User::select(DB::raw('count(*) as user_count, YEAR(created_at) year, MONTH(created_at) month'))
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        $chartDataGrowth = [
+            'labels' => [],
+            'data' => []
+        ];
+
+        foreach ($users as $user) {
+            $chartDataGrowth['labels'][] = $user->month . '/' . $user->year;
+            $chartDataGrowth['data'][] = $user->user_count;
+        }
+
+
+        $users = User::selectRaw('COUNT(*) as count, CASE
+                                    WHEN facebook_id IS NOT NULL THEN "Facebook"
+                                    WHEN github_id IS NOT NULL THEN "Github"
+                                    WHEN google_id IS NOT NULL THEN "Google"
+                                    ELSE "Site"
+                                END as provider')
+            ->groupBy('provider')
+            ->get();
+
+        $labels = $users->pluck('provider')->toArray();
+        $series = $users->pluck('count')->toArray();
+
+
+        return view('index', compact('user_count', 'posts_count', 'offers_count', 'rating_count', 'chartData',
+            'chartDataGrowth', 'labels', 'series', 'facebookCount', 'googleCount', 'githubCount', 'user_level_count', 'worker_level_count',
+            'manager_level_count', 'admin_level_count'
+        ));
     }
+
     public function activeUsers(Request $request)
     {
         $since = $request->query('since');
