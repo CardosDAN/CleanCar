@@ -339,6 +339,14 @@
                                             </div>
                                         </li>
                                     </ul>
+                                    <hr>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="d-flex flex-column align-items-center gap-1">
+                                            <h2 class="mb-2">{{4}}</h2>
+                                            <span>{{__("Total Level Users")}}</span>
+                                        </div>
+                                        <div id="userLevelsChart"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -540,6 +548,72 @@
     if (typeof chartUserConnections !== undefined && chartUserConnections !== null) {
         const userConnectionsChart = new ApexCharts(chartUserConnections, userConnectionsConfig);
         userConnectionsChart.render();
+    }
+</script>
+<script>
+    const chartUserLevels = document.querySelector('#userLevelsChart');
+    const userLevelsConfig = {
+        chart: {
+            height: 165,
+            width: 130,
+            type: 'donut'
+        },
+        labels: {!! json_encode($labels_level) !!},
+        series: {!! json_encode($series_level) !!},
+        colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
+        stroke: {
+            width: 5,
+            colors: cardColor
+        },
+        dataLabels: {
+            enabled: false,
+            formatter: function (val, opt) {
+                return parseInt(val) + '%';
+            }
+        },
+        legend: {
+            show: false
+        },
+        grid: {
+            padding: {
+                top: 0,
+                bottom: 0,
+                right: 15
+            }
+        },
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: '75%',
+                    labels: {
+                        show: true,
+                        value: {
+                            fontSize: '1.5rem',
+                            fontFamily: 'Public Sans',
+                            color: headingColor,
+                            offsetY: -15,
+                            formatter: function (val) {
+                                return parseInt(val) + '%';
+                            }
+                        },
+                        name: {
+                            offsetY: 20,
+                            fontFamily: 'Public Sans'
+                        },
+                        total: {
+                            show: true,
+                            fontSize: '0.8125rem',
+                            color: axisColor,
+                            label: '',
+                        }
+                    }
+                }
+            }
+        }
+    };
+    if (typeof chartUserLevels !== undefined && chartUserLevels !== null) {
+        const userLevelsChart = new ApexCharts(chartUserLevels, userLevelsConfig);
+        userLevelsChart.render();
     }
 </script>
 </body>

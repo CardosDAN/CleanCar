@@ -113,6 +113,12 @@
                         </a>
                     </li>
                     <li>
+                        <a class="dropdown-item" href="{{route('application.create')}}">
+                            <i class="bx bx-plus-circle me-2"></i>
+                            <span class="align-middle">{{__("Become a Worker")}}</span>
+                        </a>
+                    </li>
+                    <li>
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>

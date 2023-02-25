@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('posts', \App\Http\Controllers\PostController::class);
     Route::resource('offer', \App\Http\Controllers\OfferController::class);
     Route::resource('rating', \App\Http\Controllers\RatingController::class);
+    Route::resource('application', \App\Http\Controllers\ApplicationController::class);
     Route::get('offer.accept/{id}', [\App\Http\Controllers\ActionController::class, 'accepted'])->name('offer.accept');
     Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
     Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');

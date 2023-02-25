@@ -70,9 +70,22 @@ class DashboardController extends Controller
         $series = $users->pluck('count')->toArray();
 
 
+        $users = User::selectRaw('COUNT(*) as count, CASE
+                                    WHEN level_id = 1 THEN "User"
+                                    WHEN level_id = 2 THEN "Manager"
+                                    WHEN level_id = 3 THEN "Worker"
+                                    WHEN level_id = 4 THEN "Admin"
+                                    ELSE "Guest"
+                                END as levels')
+            ->groupBy('levels')
+            ->get();
+
+        $labels_level = $users->pluck('levels')->toArray();
+        $series_level = $users->pluck('count')->toArray();
+
         return view('index', compact('user_count', 'posts_count', 'offers_count', 'rating_count', 'chartData',
             'chartDataGrowth', 'labels', 'series', 'facebookCount', 'googleCount', 'githubCount', 'user_level_count', 'worker_level_count',
-            'manager_level_count', 'admin_level_count'
+            'manager_level_count', 'admin_level_count' ,'labels_level', 'series_level'
         ));
     }
 

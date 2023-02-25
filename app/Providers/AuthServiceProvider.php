@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Application;
 use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Post;
 use App\Models\Rating;
 use App\Models\User;
+use App\Policies\ApplicationPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\OfferPolicy;
 use App\Policies\PostPolicy;
@@ -28,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         Category::class => CategoryPolicy::class,
         Offer::class => OfferPolicy::class,
         Rating::class => RatingPolicy::class,
-
+        Application::class => ApplicationPolicy::class,
     ];
 
     /**

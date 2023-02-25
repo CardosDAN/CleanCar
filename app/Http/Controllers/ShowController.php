@@ -27,9 +27,7 @@ class ShowController extends Controller
 
     public function ratings_user($user_id)
     {
-        $user_ratings = Rating::join('users', 'users.id', '=', 'ratings.user_id')
-            ->select('users.*', 'ratings.id', 'ratings.user_id', 'ratings.rating', 'ratings.comment')
-            ->where('users.id', $user_id)->get();
+        $user_ratings = Rating::with('user')->where('user_id', $user_id)->get();
         return view('rating.worker_rating', compact('user_ratings'));
     }
 

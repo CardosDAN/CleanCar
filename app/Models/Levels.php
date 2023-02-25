@@ -11,5 +11,6 @@ class Levels extends Model
     public const USER = 1;
     public const MANAGER = 2;
     public const WORKER = 3;
+
     public const ADMIN = 4;
 }

@@ -79,8 +79,10 @@
 
                             <div class="divider"></div>
                             <div class="card-footer float-end">
+                                @if(auth()->user()->level_id === \App\Models\Levels::WORKER || auth()->user()->level_id === \App\Models\Levels::ADMIN)
                                 <a class="btn btn-primary  mt-3"
                                    href="{{route('offer.create','post_id='.$post->id)}}">{{__("Make a Offer")}}</a>
+                                @endif
                                 <a class="btn btn-secondary mt-3"
                                    href="{{route('posts.edit',$post->id)}}">{{__("Edit")}}</a>
                                 @if(\Illuminate\Support\Facades\Auth::user()->facebook_id != null)
