@@ -13,7 +13,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
     public function level()
     {
-        return $this->belongsTo(Levels::class);
+        return $this->belongsTo(Levels::class, 'level_id');
     }
     public function posts()
     {

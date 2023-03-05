@@ -187,8 +187,7 @@
                                                     <div class="col">
                                                         <div class="image">
 
-                                                            <input type="file" class="form-control" name="image"
-                                                                   multiple>
+                                                            <input type="file" class="form-control" name="image">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -221,10 +220,11 @@
                                                     placeholder="john.doe@example.com"
                                                 />
                                             </div>
-                                            @if(\Illuminate\Support\Facades\Auth::user()->level_id == 4)
+                                            @if(\Illuminate\Support\Facades\Auth::user()->level_id == \App\Models\Levels::ADMIN)
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="country">{{__('Level')}}</label>
                                                     <select id="country" name="level_id" class="select2 form-select">
+                                                        <option value="{{$user->level_id}}">{{$user->level->level_name}}</option>
                                                         @foreach($levels as $level)
                                                             <option value="{{$level->id}}">{{$level->level_name}}</option>
                                                         @endforeach

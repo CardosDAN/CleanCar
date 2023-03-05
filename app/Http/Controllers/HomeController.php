@@ -46,6 +46,8 @@ class HomeController extends Controller
         $category_id = $request->input('category_id');
         $city_id = $request->input('city_id');
         $posts = Post::where('category_id', $category_id)->where('city_id', $city_id)
+            ->where('status', 1)
+            ->where('completed', 0)
             ->with('images')
             ->get();
         return response()->json($posts);

@@ -10,8 +10,8 @@ use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
 use Illuminate\Pagination\Paginator;
+use Intervention\Image\Facades\Image;
 
 
 class UserController extends Controller
@@ -115,19 +115,29 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'level_id' => $request->input('level_id'),
-            'image_path' => $request->input('image'),
-        ]);
-        if( $request->file('image')){
-            DB::table('users')->where('image_path', '=', 'image')->update(array('image_path' => 'image'));
+        if ($request->hasFile('image')) {
+
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+            $image = $request->file('image');
+
+            $imagePath = public_path('images/users/' . $newImageName);
+            Image::make($image)->resize(300, 300)->save($imagePath);
+
             $request->image->move(public_path('images/users'), $newImageName);
+
+            $user->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'level_id' => $request->input('level_id'),
+                'image_path' => $newImageName,
+            ]);
+        } else {
+            $user->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'level_id' => $request->input('level_id'),
+            ]);
         }
-
-
         return redirect()->route('user.index');
     }
 

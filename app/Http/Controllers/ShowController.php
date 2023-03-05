@@ -36,11 +36,26 @@ class ShowController extends Controller
         $user_posts = Post::join('users', 'users.id', '=', 'posts.user_id')
             ->select('users.*', 'posts.*')
             ->where('users.id', auth()->user()->id)->get();
-        return view('posts.user', compact('user_posts'));
+
+        $done_posts = Post::join('users', 'users.id', '=', 'posts.user_id')
+            ->select('users.*', 'posts.*')
+            ->where('users.id', auth()->user()->id)
+            ->where('posts.completed', 1)->get();
+        return view('posts.user', compact('user_posts','done_posts'));
     }
     public function connections($user_id)
     {
         $user = User::find($user_id);
         return view('user.connections', compact('user'));
+    }
+
+    public function manage_posts(){
+        $posts = Post::where('status',0)->get();
+        return view('posts.manage_post', compact('posts'));
+    }
+
+    public function completed_offers(){
+        $offers = Offer::where('completed',1)->get();
+        return view('offer.completed_offers', compact('offers'));
     }
 }

@@ -28,7 +28,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', [\App\Http\Controllers\DashboardController::class, 'index'])->name('home');
     Route::get('/reports/active-users',[ \App\Http\Controllers\DashboardController::class,'activeUsers']);
 
-    Route::view('/test', 'test')->name('test');
     Route::get('posts.posts', [\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('user', \App\Http\Controllers\UserController::class);
@@ -38,9 +37,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('application', \App\Http\Controllers\ApplicationController::class);
     Route::get('offer.accept/{id}', [\App\Http\Controllers\ActionController::class, 'accepted'])->name('offer.accept');
     Route::get('offer.delete/{id}', [\App\Http\Controllers\ActionController::class, 'deleted'])->name('offer.delete');
+    Route::get('posts.active/{id}', [\App\Http\Controllers\ActionController::class, 'post_accepted'])->name('posts.active');
+
     Route::get('offer.user', [\App\Http\Controllers\ShowController::class, 'offer'])->name('offer.user');
     Route::get('rating.worker_rating/{user_id}', [\App\Http\Controllers\ShowController::class, 'ratings_user'])->name('rating.worker_rating');
     Route::get('offer.accepted', [\App\Http\Controllers\HomeController::class, 'getAcceptedOffers'])->name('offer.accepted');
+    Route::get('offer.completed', [\App\Http\Controllers\ShowController::class, 'completed_offers'])->name('offer.completed');
     Route::get('posts.user', [\App\Http\Controllers\ShowController::class, 'user_posts'])->name('posts.user');
 
     Route::get('user.connections/{user_id}', [\App\Http\Controllers\ShowController::class, 'connections'])->name('user.connections');
@@ -58,6 +60,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('api/fetch-notifications', [\App\Http\Controllers\ActionController::class, 'get_latest_notifications']);
     Route::get('api/fetch-notifications-count', [\App\Http\Controllers\ActionController::class, 'get_notifications_count']);
     Route::post('/check-offer',[\App\Http\Controllers\ShowController::class, 'checkOffer'])->name('check-offer');
+    Route::get('manage_posts', [\App\Http\Controllers\ShowController::class, 'manage_posts'])->name('manage_posts');
 });
 
 

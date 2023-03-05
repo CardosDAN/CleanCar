@@ -41,26 +41,32 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">{{__("Application /")}}</span> {{__("Applications Table")}}</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">{{__("Posts /")}}</span>{{__("All New Posts")}}</h4>
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
 
-                        <h5 class="card-header">{{__("Application Table")}}</h5>
+                        <h5 class="card-header">{{__("Posts Table")}}</h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>{{__("Message")}}</th>
-                                    <th>{{__("User")}}</th>
-                                    <th>Actions</th>
+                                    <th>{{__("Title")}}</th>
+                                    <th>{{__("Description")}}</th>
+                                    <th>{{__("Created at")}}</th>
+                                    <th>{{__("Actions")}}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                @foreach($applications as $application)
+                                @foreach($posts as $post)
                                     <tr>
                                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                            <strong>{{$application->message}}</strong></td>
-                                        <td>{{$application->user->name}}</td>
+                                            <strong>{{$post->title}}</strong></td>
+                                        </td>
+                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                            <strong>{{$post->post_text}}</strong></td>
+                                        </td>
+
+                                        <td>{{$post->created_at}}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -68,28 +74,32 @@
                                                     <i class="bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{route('application.show',$application)}}"><i
+                                                    <a class="dropdown-item" href="{{route('posts.show',$post)}}"><i
                                                             class="bx bx-show-alt me-1"></i>{{__("Show")}} </a>
-                                                    <form method="POST" action="{{route('application.destroy', $application)}}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="dropdown-item" type="submit" onclick="return confirm('Are you sure?')"><i class="bx bx-trash me-1"></i> Delete</button>
-
-                                                    </form>
+                                                    <a class="dropdown-item" href="{{route('posts.active',$post)}}"><i
+                                                            class="bx bx-check-circle me-1"></i>{{__("Approve")}} </a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
-                                {{ $applications->links() }}
                             </table>
-
                         </div>
                     </div>
                     <!--/ Basic Bootstrap Table -->
                 </div>
                 <!-- / Content -->
-
+                <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="successMessage"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Footer -->
                 @include('layout.footer')
                 <!-- / Footer -->
@@ -108,5 +118,13 @@
 
 
 @include('layout.script')
+@if(session('status'))
+    <script>
+        $(document).ready(function() {
+            $('#successMessage').text('{{ session('status') }}');
+            $('#successModal').modal('show');
+        });
+    </script>
+@endif
 </body>
 </html>

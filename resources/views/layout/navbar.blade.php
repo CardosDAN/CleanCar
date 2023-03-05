@@ -158,6 +158,11 @@
                         var icon = 'bx-check-circle';
                         var coloricon = 'btn-success';
                     }
+                    if(notification.message.indexOf('waiting') > -1) {
+                        var toastClass = 'bg-warning';
+                        var icon = 'bx-warning-circle';
+                        var coloricon = 'btn-warning';
+                    }
                     let toast = `<br>
                     <div class="bs-toast toast fade show ${toastClass}" role="alert" aria-live="assertive" aria-atomic="true">
                                         <div class="toast-header">

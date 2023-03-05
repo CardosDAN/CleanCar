@@ -29,6 +29,14 @@ class ActionController extends Controller
         return back()->with('status', 'Rejected with success');
     }
 
+    public function post_accepted(Request $request){
+        $post = Post::find($request->id);
+        $id = $request->id;
+        DB::statement("UPDATE posts SET status = 1 where id =".$id);
+        $this->new_notification($post->user_id, 'Your post has been accepted', 'post/'.$post->id);
+        return back()->with('status', 'Post accepted with success');
+    }
+
     public function new_notification($user_id, $message, $link){
         $notification = new Notification();
         $notification->user_id = $user_id;

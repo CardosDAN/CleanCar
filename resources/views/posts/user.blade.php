@@ -43,7 +43,7 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Posts /</span> All Posts</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">{{__("Posts /")}}</span>{{__(" All Posts")}}</h4>
                     <div class="row">
                         @foreach($user_posts as $post)
                             <div class="col-md-6 col-lg-4 mb-3">
@@ -63,6 +63,27 @@
                             </div>
                         @endforeach
                     </div>
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">{{__("Posts /")}}</span>{{__(" All Completed Posts")}}</h4>
+                        <div class="row">
+                            @foreach($done_posts as $post)
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{$post->title}}</h5>
+                                            <h6 class="card-subtitle text-muted">{{$post->created_at->diffForHumans()}}</h6>
+                                            @foreach($post->images->slice(0, 1) as $image)
+                                                <img class="img-fluid d-flex mx-auto my-4" src="{{$image->url}}"
+                                                     alt="Card image cap">
+                                            @endforeach
+                                            <p class="card-text">{{$post->post_text}}</p>
+                                            <a href="{{route('posts.show',$post)}}"
+                                               class="btn btn-outline-primary float-end">{{__("View")}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     <!--/ Basic Bootstrap Table -->
                 </div>
                 <!-- / Content -->

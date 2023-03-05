@@ -61,6 +61,7 @@ class OfferController extends Controller
         }
         if(Offer::where('end_time', Carbon::now())->where('post_id', $request->post_id)->exists()) {
             Offer::update(['completed' => 1]);
+            Post::where('id', $request->post_id)->update(['completed' => 1]);
             return back()->with('status', 'The offer has expired');
         }
         $offer = new Offer();

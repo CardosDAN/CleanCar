@@ -176,6 +176,13 @@
                             </a>
                         </li>
                     @endif
+                    @if(\App\Models\Offer::where('user_id', auth()->user()->id)->where('completed', 1)->get()->count() > 0)
+                        <li class="menu-item">
+                            <a href="{{route('offer.completed')}}" class="menu-link">
+                                <div data-i18n="Without navbar">{{__("Completed offers")}}</div>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </li>
         @endif
@@ -190,11 +197,20 @@
                 </a>
 
                 <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="{{route('application.index')}}" class="menu-link">
-                            <div data-i18n="Without navbar">{{__("Applications")}}</div>
-                        </a>
-                    </li>
+                    @if(\App\Models\Application::where('status', 0)->get()->count() > 0)
+                        <li class="menu-item">
+                            <a href="{{route('application.index')}}" class="menu-link">
+                                <div data-i18n="Without navbar">{{__("Applications")}}</div>
+                            </a>
+                        </li>
+                    @endif
+                    @if(\App\Models\Post::where('status', 0)->get()->count() > 0)
+                        <li class="menu-item">
+                            <a href="{{route('manage_posts')}}" class="menu-link">
+                                <div data-i18n="Without navbar">{{__("Posts")}}</div>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </li>
         @endif

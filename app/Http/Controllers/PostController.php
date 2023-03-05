@@ -78,6 +78,7 @@ class PostController extends Controller
             $image->save();
         }
         (new ActionController)->new_notification($post->user_id, 'Your post has been created', 'posts/'.$post->id);
+        (new ActionController)->new_notification($post->user_id, 'Waiting for approval', 'posts/'.$post->id);
         return redirect()->back()->with('status', 'Post created successfully');
     }
 
@@ -125,6 +126,7 @@ class PostController extends Controller
             'category_id' => $request->input('category_id'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
+            'status' => '0',
         ]);
 
         if ($request->file('images')) {
