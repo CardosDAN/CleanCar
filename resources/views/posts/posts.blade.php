@@ -145,10 +145,7 @@
     let citySelect = document.querySelector("#city-dd");
     let resultsDiv = document.querySelector("#results");
 
-    categorySelect.addEventListener("change", function () {
-        let categoryId = this.value;
-        let cityId = citySelect.value;
-
+    function fetchPosts(categoryId, cityId) {
         $.ajax({
             type: "GET",
             url: "{{url('api/fetch-posts')}}",
@@ -184,7 +181,6 @@
                         id.classList.add("btn-outline-primary");
                         id.textContent = "View post";
                         id.href = "/posts/" + post.id;
-
 
                         cardBody.appendChild(title);
                         cardBody.appendChild(description);
@@ -200,61 +196,20 @@
                 console.log("An error occurred: " + error);
             }
         });
+    }
+
+    categorySelect.addEventListener("change", function () {
+        let categoryId = this.value;
+        let cityId = citySelect.value;
+
+        fetchPosts(categoryId, cityId);
     });
+
     citySelect.addEventListener("change", function () {
         let cityId = this.value;
         let categoryId = categorySelect.value;
 
-        $.ajax({
-            type: "GET",
-            url: "{{url('api/fetch-posts')}}",
-            data: {category_id: categoryId, city_id: cityId},
-            success: function (result) {
-                resultsDiv.innerHTML = "";
-                if (result && result.length) {
-                    result.forEach(function (post) {
-                        let card = document.createElement("div");
-                        card.classList.add("card");
-
-                        if (post.images && post.images.length) {
-                            let image = document.createElement("img");
-                            image.classList.add("card-img-top");
-                            image.src = post.images[0].url;
-                            image.alt = "Card image cap";
-                            card.appendChild(image);
-                        }
-
-                        let cardBody = document.createElement("div");
-                        cardBody.classList.add("card-body");
-
-                        let title = document.createElement("h5");
-                        title.classList.add("card-title");
-                        title.textContent = post.title;
-
-                        let description = document.createElement("p");
-                        description.classList.add("card-text");
-                        description.textContent = post.post_text;
-
-                        let id = document.createElement("a");
-                        id.classList.add("btn");
-                        id.classList.add("btn-outline-primary");
-                        id.textContent = "View post";
-                        id.href = "/posts/" + post.id;
-
-                        cardBody.appendChild(title);
-                        cardBody.appendChild(description);
-                        card.appendChild(cardBody);
-                        card.appendChild(id);
-                        resultsDiv.appendChild(card);
-                    });
-                } else {
-                    console.log("No data received from the server");
-                }
-            },
-            error: function (xhr, status, error) {
-            console.log("An error occurred: " + error);
-        }
-        });
+        fetchPosts(categoryId, cityId);
     });
 </script>
 

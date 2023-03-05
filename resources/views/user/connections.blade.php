@@ -99,16 +99,16 @@
                                             <span class="badge bg-label-primary p-2 rounded"><i
                                                     class="bx bx-check bx-sm"></i></span>
                                             <div>
-                                                <h5 class="mb-0">1.23k</h5>
-                                                <span>Tasks Done</span>
+                                                <h5 class="mb-0">{{$approved_posts}}</h5>
+                                                <span>{{__("Posts")}}</span>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-start mt-3 gap-3">
                                             <span class="badge bg-label-primary p-2 rounded"><i
                                                     class="bx bx-customize bx-sm"></i></span>
                                             <div>
-                                                <h5 class="mb-0">568</h5>
-                                                <span>Projects Done</span>
+                                                <h5 class="mb-0">{{$completed_offers}}</h5>
+                                                <span>{{__("Completed Offers")}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -161,16 +161,10 @@
                                                 <span class="fw-bold me-2">{{__("id:")}}</span>
                                                 <span>{{$user->id}}</span>
                                             </li>
-                                            <li class="mb-3">
-                                                <span class="fw-bold me-2">Languages:</span>
-                                                <span>French</span>
-                                            </li>
                                         </ul>
                                         <div class="d-flex justify-content-center pt-3">
                                             <a href="{{route('user.edit',\Illuminate\Support\Facades\Auth::user())}}"
                                                class="btn btn-primary me-3">Edit</a>
-                                            <a href="javascript:;"
-                                               class="btn btn-label-danger suspend-user">Suspended</a>
                                         </div>
                                     </div>
                                 </div>

@@ -7,12 +7,7 @@ use App\Models\Offer;
 use App\Models\Post;
 use App\Models\Rating;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Gate;
 
 class ShowController extends Controller
 {
@@ -45,17 +40,27 @@ class ShowController extends Controller
     }
     public function connections($user_id)
     {
+        $completed_offers = Offer::where('user_id', auth()->user()->id)->where('completed', 1)->count();
+        $approved_posts = Post::where('user_id', auth()->user()->id)->where('status', 1)->count();
         $user = User::find($user_id);
-        return view('user.connections', compact('user'));
+        return view('user.connections', compact('user', 'completed_offers', 'approved_posts'));
     }
 
     public function manage_posts(){
-        $posts = Post::where('status',0)->get();
-        return view('posts.manage_post', compact('posts'));
+        if (Gate::allows('manage_posts')) {
+            $posts = Post::where('status',0)->get();
+            return view('posts.manage_post', compact('posts'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function completed_offers(){
-        $offers = Offer::where('completed',1)->get();
-        return view('offer.completed_offers', compact('offers'));
+        if (Gate::allows('offer.completed')) {
+            $offers = Offer::where('completed',1)->get();
+            return view('offer.completed_offers', compact('offers'));
+        } else {
+            return redirect()->back();
+        }
     }
 }

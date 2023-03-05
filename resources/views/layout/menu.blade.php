@@ -67,13 +67,15 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
+        @if( Auth::user()->level_id === \App\Models\Levels::ADMIN )
         <!-- Dashboard -->
-        <li class="menu-item active">
+        <li class="menu-item">
             <a href="{{route('home')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+        @endif
         <!-- Posts -->
         @if(Auth::user()->level_id === 2 || Auth::user()->level_id === 4 )
             <li class="menu-header small text-uppercase">
@@ -197,20 +199,17 @@
                 </a>
 
                 <ul class="menu-sub">
-                    @if(\App\Models\Application::where('status', 0)->get()->count() > 0)
-                        <li class="menu-item">
-                            <a href="{{route('application.index')}}" class="menu-link">
-                                <div data-i18n="Without navbar">{{__("Applications")}}</div>
-                            </a>
-                        </li>
-                    @endif
-                    @if(\App\Models\Post::where('status', 0)->get()->count() > 0)
-                        <li class="menu-item">
-                            <a href="{{route('manage_posts')}}" class="menu-link">
-                                <div data-i18n="Without navbar">{{__("Posts")}}</div>
-                            </a>
-                        </li>
-                    @endif
+                    <li class="menu-item">
+                        <a href="{{route('application.index')}}" class="menu-link">
+                            <div data-i18n="Without navbar">{{__("Applications")}}</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{route('manage_posts')}}" class="menu-link">
+                            <div data-i18n="Without navbar">{{__("Posts")}}</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endif

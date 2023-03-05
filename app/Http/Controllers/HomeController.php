@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\{Country, Offer, State, City};
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -35,10 +36,14 @@ class HomeController extends Controller
 
     public function getAcceptedOffers()
     {
-        $offers = Offer::where('user_id', auth()->user()->id)
-            ->where('accepted', 1)
-            ->get();
-        return view('offer.acceptedOffer', compact( 'offers'));
+        if (Gate::allows('offer.accepted')) {
+            $offers = Offer::where('user_id', auth()->user()->id)
+                ->where('accepted', 1)
+                ->get();
+            return view('offer.acceptedOffer', compact('offers'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function fetchPosts(Request $request)

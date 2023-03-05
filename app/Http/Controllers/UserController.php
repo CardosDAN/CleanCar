@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Levels;
 use App\Models\Notification;
+use App\Models\Offer;
 use App\Models\Post;
 use App\Models\User;
 use Dotenv\Validator;
@@ -87,9 +88,11 @@ class UserController extends Controller
     public function show(User $user)
     {
         Paginator::useBootstrap();
+        $completed_offers = Offer::where('user_id', auth()->user()->id)->where('completed', 1)->count();
+        $approved_posts = Post::where('user_id', auth()->user()->id)->where('status', 1)->count();
         $notifications = Notification::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10);
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(6);
-        return view('user.account', compact('user',  'posts', 'notifications'));
+        return view('user.account', compact('user',  'posts', 'notifications', 'approved_posts', 'completed_offers'));
     }
 
     /**
@@ -101,9 +104,11 @@ class UserController extends Controller
     public function edit(User $user)
     {
         Paginator::useBootstrap();
+        $completed_offers = Offer::where('user_id', auth()->user()->id)->where('completed', 1)->count();
+        $approved_posts = Post::where('user_id', auth()->user()->id)->where('status', 1)->count();
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(6);
         $levels = Levels::all();
-        return view('user.edit', compact('user', 'levels', 'posts'));
+        return view('user.edit', compact('user', 'levels', 'posts', 'approved_posts', 'completed_offers'));
     }
 
     /**

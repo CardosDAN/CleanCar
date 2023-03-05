@@ -136,7 +136,7 @@
                             <div class="card">
                                 <div class="row row-bordered g-0">
                                     <div class="col-md-8">
-                                        <canvas class="px-2" id="myChart"></canvas>
+                                        <canvas width="400" height="350" class="px-2" id="myChart"></canvas>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="card-header">

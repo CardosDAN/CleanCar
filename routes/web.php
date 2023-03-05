@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/reports/active-users',[ \App\Http\Controllers\DashboardController::class,'activeUsers']);
 
     Route::get('posts.posts', [\App\Http\Controllers\HomeController::class, 'index'])->name('posts_all');
+
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('user', \App\Http\Controllers\UserController::class);
     Route::resource('posts', \App\Http\Controllers\PostController::class);
@@ -54,7 +55,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::post('/notifications/{id}/read', [\App\Http\Controllers\ActionController::class, 'markAsRead']);
     Route::get("api/notifications/read-all", [\App\Http\Controllers\ActionController::class, 'mark_all_as_read'])->name('notifications.read_all');
+
     Route::get('api/fetch-posts', [\App\Http\Controllers\HomeController::class, 'fetchPosts']);
+
     Route::post('api/fetch-states', [\App\Http\Controllers\HomeController::class, 'fetchState']);
     Route::post('api/fetch-cities', [\App\Http\Controllers\HomeController::class, 'fetchCity']);
     Route::get('api/fetch-notifications', [\App\Http\Controllers\ActionController::class, 'get_latest_notifications']);

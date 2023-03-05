@@ -88,7 +88,7 @@
                                             aria-label="Close"></button>
                                 </div>
                             @endif
-                            <h5 class="card-header">{{__("Offers List")}}</h5>
+                            <h5 class="card-header">{{__("Offers Details")}}</h5>
                             <div class="table-responsive mb-3">
                                 <div id="DataTables_Table_0_wrapper"
                                      class="dataTables_wrapper dt-bootstrap5 no-footer">
