@@ -47,29 +47,27 @@
 <div class="container shadow bg-light">
     <div class="divider"></div>
     <h2 class="h1-responsive font-weight-bold text-center my-4 text-primary">{{__("About us")}}</h2>
+    <hr>
     <div class="row mb-5">
-        <div class="col-md">
+        <div class="col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text">
-                                We are a team of passionate car enthusiasts who are dedicated to helping car owners find
-                                reliable and trustworthy car washers in their area. Our platform connects car owners
-                                with skilled workers who can provide professional car washing services at an affordable
-                                price.
-                            </p>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    <p class="blockquote-footer text-black text-center">
+                        We are a team of passionate car enthusiasts who are dedicated to helping car owners find
+                        reliable and trustworthy car washers in their area. Our platform connects car owners
+                        with skilled workers who can provide professional car washing services at an affordable
+                        price.
+                    </p>
                 </div>
+                <img class="card-img-bottom" src="{{asset("../assets/img/elements/21.jpg")}}" alt="Card image cap">
             </div>
         </div>
         <div class="col-md">
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text">
+                        <div class="card-body text-center ">
+                            <p class="card-text ">
                                 Our goal is to make car washing easy and hassle-free for everyone. We understand that
                                 finding a good car washer can be difficult, especially if you're new to an area or don't
                                 have any personal recommendations. That's why we've created a platform where car owners
@@ -79,12 +77,42 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <img class="card-img card-img-right" src="{{asset("../assets/img/elements/Carwash.jpg")}}" alt="Card image">
+                        <img class="card-img card-img-right" src="{{asset("../assets/img/elements/Carwash.jpg")}}"
+                             alt="Card image">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0 text-start">
+                                <p class="blockquote-footer text-black">
+                                    At our core, we believe in providing our users with the highest level of customer service
+                                    and support. If you have any questions or concerns about our platform, please don't hesitate
+                                    to contact us. We're here to help you find the perfect car washer for your needs.
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0 text-center">
+                                <p>
+                                        Thank you for choosing our platform and for trusting us with your car washing needs. We look
+                                    forward to helping you find the perfect worker for your car washing needs.
+                                </p>
+                            </blockquote>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+
     <div class="divider"></div>
 </div>
 <div class="container shadow bg-light ">
@@ -93,6 +121,7 @@
         <div class="divider"></div>
         <!--Section heading-->
         <h2 class="h1-responsive font-weight-bold text-center my-4 text-primary">{{__("Contact us")}}</h2>
+        <hr>
         <!--Section description-->
         <p class="text-center w-responsive mx-auto mb-5">{{__("Do you have any questions?
             Please do not hesitate to contact us directly. Our team will come back to you within
