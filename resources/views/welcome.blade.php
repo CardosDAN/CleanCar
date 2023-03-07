@@ -43,16 +43,60 @@
         </div>
     </div>
 </nav>
+<div class="divider"></div>
+<div class="container shadow bg-light">
+    <div class="divider"></div>
+    <h2 class="h1-responsive font-weight-bold text-center my-4 text-primary">{{__("About us")}}</h2>
+    <div class="row mb-5">
+        <div class="col-md">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">
+                                We are a team of passionate car enthusiasts who are dedicated to helping car owners find
+                                reliable and trustworthy car washers in their area. Our platform connects car owners
+                                with skilled workers who can provide professional car washing services at an affordable
+                                price.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Our goal is to make car washing easy and hassle-free for everyone. We understand that
+                                finding a good car washer can be difficult, especially if you're new to an area or don't
+                                have any personal recommendations. That's why we've created a platform where car owners
+                                can quickly and easily post their car washing needs and receive competitive offers from
+                                skilled workers.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="card-img card-img-right" src="{{asset("../assets/img/elements/Carwash.jpg")}}" alt="Card image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+</div>
 <div class="container shadow bg-light ">
     <!--Section: Contact v.2-->
     <section class="mb-4">
         <div class="divider"></div>
         <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4 text-primary">Contact us</h2>
+        <h2 class="h1-responsive font-weight-bold text-center my-4 text-primary">{{__("Contact us")}}</h2>
         <!--Section description-->
-        <p class="text-center w-responsive mx-auto mb-5">Do you have any questions?
+        <p class="text-center w-responsive mx-auto mb-5">{{__("Do you have any questions?
             Please do not hesitate to contact us directly. Our team will come back to you within
-            a matter of hours to help you.</p>
+            a matter of hours to help you.")}}</p>
 
         <div class="row">
 
@@ -84,7 +128,8 @@
                         <div class="col-md-6">
                             <div class="md-form m-2">
                                 <label for="email" class="">Your email</label>
-                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}">
+                                <input type="email" id="email" name="email" class="form-control"
+                                       value="{{ old('email') }}">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
@@ -100,7 +145,8 @@
                         <div class="col-md-12">
                             <div class="md-form m-2">
                                 <label for="subject" class="">Subject</label>
-                                <input type="text" id="subject" name="subject" class="form-control" value="{{ old('subject') }}">
+                                <input type="text" id="subject" name="subject" class="form-control"
+                                       value="{{ old('subject') }}">
                                 @if ($errors->has('subject'))
                                     <span class="text-danger">{{ $errors->first('subject') }}</span>
                                 @endif
@@ -131,7 +177,6 @@
                         <button class="btn btn-primary" type="submit">Send</button>
                     </div>
                 </form>
-
 
 
             </div>
