@@ -19,11 +19,13 @@ class ShowController extends Controller
             ->where('posts.user_id', auth()->user()->id)->get();
         return view('offer.user', compact('user_offers'));
     }
-
     public function ratings_user($user_id)
     {
-        $user_ratings = Rating::with('user')->where('user_id', $user_id)->get();
-        return view('rating.worker_rating', compact('user_ratings'));
+        $user = User::findOrFail($user_id);
+        $user_ratings = Rating::where('user_id', $user_id)->get();
+        $avg_rating = Rating::where('user_id', $user_id)->avg('rating');
+        $completed_offers = Offer::where('user_id', auth()->user()->id)->where('completed', 1)->count();
+        return view('rating.worker_rating', compact('user_ratings', 'user', 'avg_rating', 'completed_offers'));
     }
 
     public function user_posts()

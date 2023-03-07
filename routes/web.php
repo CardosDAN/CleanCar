@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\GitHubController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
 Route::get('callback/github', [GitHubController::class, 'gitCallback']);
 Route::get('auth/facebook', [\App\Http\Controllers\Auth\FacebookController::class, 'facebookRedirect']);
 Route::get('callback/facebook', [\App\Http\Controllers\Auth\FacebookController::class, 'loginWithFacebook']);
+Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {

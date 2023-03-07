@@ -10,6 +10,16 @@
 >
 @include('layout.head')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<style type="text/css">
+    .layout-menu-fixed .layout-navbar-full .layout-menu,
+    .layout-page {
+        padding-top: 0px !important;
+    }
+
+    .content-wrapper {
+        padding-bottom: 0px !important;
+    }
+</style>
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -26,58 +36,190 @@
             @include('layout.navbar')
 
             <!-- / Navbar -->
-
             <!-- Content wrapper -->
             <div class="content-wrapper">
+
                 <!-- Content -->
-                <!-- / Content -->
-                <div class="container m-4">
-                    <div class="row justify-content-between">
-                        <div class="col-md-10  mb-3 shadow-lg rounded">
-                            <div class="divider"></div>
-                            <p class="text-light fw-semibold">{{__("Rating information")}}</p>
-                            <div class="demo-inline-spacing mt-3">
-                                <ul class="list-group">
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="bx bx-user me-2"></i>
-                                        {{$rating->user->name}}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="bx bx-time me-2"></i>
-                                        {{$rating->created_at->diffForHumans()}}
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center">
-                                        <i class="bx bx-star me-2"></i>
-                                        <div class="rateyo" id="rating"
-                                             data-rateyo-rating="{{$rating->rating}}">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4">
+                        <span class="text-muted fw-light">{{__("User / View /")}}</span> {{__("Ratings")}}
+                    </h4>
+
+                    <div class="row">
+                        <!-- User Sidebar -->
+                        <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                            <!-- User Card -->
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="user-avatar-section">
+                                        <div class=" d-flex align-items-center flex-column">
+                                            <img class="img-fluid rounded my-4"
+                                                 src="{{asset('images'). '/' . 'users' . '/' . $rating->user->image_path}}"
+                                                 height="110" width="110" alt="User avatar">
+                                            <div class="user-info text-center">
+                                                <h4 class="mb-2">{{$rating->user->name}}</h4>
+                                                <span class="badge bg-label-secondary">
+                                                            @if($rating->user->level_id === 1)
+                                                        User
+                                                    @elseif($rating->user->level_id === 2)
+                                                        Manager
+                                                    @elseif($rating->user->level_id === 3)
+                                                        Worker
+                                                    @elseif($rating->user->level_id === 4)
+                                                        Admin
+                                                    @endif
+                                                    </span>
+                                            </div>
                                         </div>
-
-                                    </li>
-                                </ul>
-                                <h3 class="text-lighter fw-semibold"> {{__("Comment")}}</h3>
-                                <p class="text-center fw-lighter">{{$rating->comment}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                                                <span class="badge bg-label-primary p-2 rounded"><i
+                                                        class="bx bx-check bx-sm"></i></span>
+                                            <div>
+                                                <h5 class="mb-0">1.23k</h5>
+                                                <span>Tasks Done</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-start mt-3 gap-3">
+                                                <span class="badge bg-label-primary p-2 rounded"><i
+                                                        class="bx bx-customize bx-sm"></i></span>
+                                            <div>
+                                                <h5 class="mb-0">568</h5>
+                                                <span>Projects Done</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="pb-2 border-bottom mb-4">{{__("Details")}}</h5>
+                                    <div class="info-container">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("Username:")}}</span>
+                                                <span>{{$rating->user->name}}</span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("Email:")}}</span>
+                                                <span>{{$rating->user->email}}</span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">Status:</span>
+                                                <span class="badge bg-label-success">
+                                                         @if(Cache::has('is_online' . $rating->user->id))
+                                                        <span class="text-success">Online</span>
+                                                    @else
+                                                        <span class="text-secondary">Offline</span>
+                                                    @endif
+                                                    </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">Last seen:</span>
+                                                <span class="badge bg-label-secondary">
+                                                         @if($rating->user->last_seen != null)
+                                                        {{ \Carbon\Carbon::parse($rating->user->last_seen)->diffForHumans() }}
+                                                    @else
+                                                        No data
+                                                    @endif
+                                                    </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("Role:")}}</span>
+                                                <span>
+                                                         @if($rating->user->level_id === 1)
+                                                        User
+                                                    @elseif($rating->user->level_id === 2)
+                                                        Manager
+                                                    @elseif($rating->user->level_id === 3)
+                                                        Worker
+                                                    @elseif($rating->user->level_id === 4)
+                                                        Admin
+                                                    @endif
+                                                    </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("id:")}}</span>
+                                                <span>{{$rating->user->id}}</span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">Languages:</span>
+                                                <span>French</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="divider"></div>
+                            <!-- /User Card -->
                         </div>
+                        <!--/ User Sidebar -->
+                        <!-- User Content -->
+                        <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                            <!-- Project table -->
+                                <div class="card mb-4">
+                                    <h5 class="card-header">{{__("Ratings")}}</h5>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th>{{__("Rating")}}</th>
+                                                    <th>{{__("Comment")}}</th>
+                                                    <th>{{__("Date")}}</th>
+                                                </tr>
+                                                </thead>
+                                                @foreach($ratings as $rating_info)
+                                                    <tbody>
+                                                <tr>
+                                                    <td>
+                                                            <span class="badge bg-label-secondary">
+                                                                     <div class="rateyo" id="rating"
+                                                                          data-rateyo-rating="{{$rating->rating}}">
+                                                                    </div>
+                                                            </span>
+                                                    </td>
+                                                    <td>
+                                                                <span class="badge bg-label-secondary">
+                                                                    {{$rating->comment}}
+                                                                </span>
+                                                    </td>
+                                                    <td>
+                                                                <span class="badge bg-label-secondary">
+                                                                    {{$rating->created_at}}
+                                                                </span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <!-- /Project table -->
+                        </div>
+                        <!--/ User Content -->
+
                     </div>
+
                 </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                @include('layout.footer')
+                <!-- / Footer -->
+
+
+                <div class="content-backdrop fade"></div>
             </div>
-
-            <!-- Footer -->
-            @include('layout.footer')
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
+            <!-- Content wrapper -->
         </div>
-        <!-- Content wrapper -->
+        <!-- / Layout page -->
     </div>
-    <!-- / Layout page -->
-</div>
 
-<!-- Overlay -->
-<div class="layout-overlay layout-menu-toggle"></div>
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
+
+
 @include('layout.script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>

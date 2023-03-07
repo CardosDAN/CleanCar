@@ -40,167 +40,161 @@
             <div class="content-wrapper">
 
                 <!-- Content -->
-
                 <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4">
+                        <span class="text-muted fw-light">{{__("User / View /")}}</span> {{__("Ratings")}}
+                    </h4>
 
-                    @foreach($user_ratings as $rating)
-                        <h4 class="fw-bold py-3 mb-4">
-                            <span class="text-muted fw-light">{{__("User / View /")}}</span> {{__("Account")}}
-                        </h4>
-
-                        <div class="row">
-                            <!-- User Sidebar -->
-                            <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
-                                <!-- User Card -->
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <div class="user-avatar-section">
-                                            <div class=" d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded my-4"
-                                                     src="{{asset('images'). '/' . 'users' . '/' . $rating->user->image_path}}"
-                                                     height="110" width="110" alt="User avatar">
-                                                <div class="user-info text-center">
-                                                    <h4 class="mb-2">{{$rating->user->name}}</h4>
-                                                    <span class="badge bg-label-secondary">
-                                                            @if($rating->user->level_id === 1)
-                                                            User
-                                                        @elseif($rating->user->level_id === 2)
-                                                            Manager
-                                                        @elseif($rating->user->level_id === 3)
-                                                            Worker
-                                                        @elseif($rating->user->level_id === 4)
-                                                            Admin
-                                                        @endif
+                    <div class="row">
+                        <!-- User Sidebar -->
+                        <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                            <!-- User Card -->
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="user-avatar-section">
+                                        <div class=" d-flex align-items-center flex-column">
+                                            <img class="img-fluid rounded my-4"
+                                                 src="{{asset('images'). '/' . 'users' . '/' . $user->image_path}}"
+                                                 height="110" width="110" alt="User avatar">
+                                            <div class="user-info text-center">
+                                                <h4 class="mb-2">{{$user->name}}</h4>
+                                                <span class="badge bg-label-secondary">
+                                                            @if($user->level_id === 1)
+                                                        User
+                                                    @elseif($user->level_id === 2)
+                                                        Manager
+                                                    @elseif($user->level_id === 3)
+                                                        Worker
+                                                    @elseif($user->level_id === 4)
+                                                        Admin
+                                                    @endif
                                                     </span>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex justify-content-around flex-wrap my-4 py-3">
-                                            <div class="d-flex align-items-start me-4 mt-3 gap-3">
-                                                <span class="badge bg-label-primary p-2 rounded"><i
-                                                        class="bx bx-check bx-sm"></i></span>
-                                                <div>
-                                                    <h5 class="mb-0">1.23k</h5>
-                                                    <span>Tasks Done</span>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-start mt-3 gap-3">
-                                                <span class="badge bg-label-primary p-2 rounded"><i
-                                                        class="bx bx-customize bx-sm"></i></span>
-                                                <div>
-                                                    <h5 class="mb-0">568</h5>
-                                                    <span>Projects Done</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="pb-2 border-bottom mb-4">{{__("Details")}}</h5>
-                                        <div class="info-container">
-                                            <ul class="list-unstyled">
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">{{__("Username:")}}</span>
-                                                    <span>{{$rating->user->name}}</span>
-                                                </li>
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">{{__("Email:")}}</span>
-                                                    <span>{{$rating->user->email}}</span>
-                                                </li>
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">Status:</span>
-                                                    <span class="badge bg-label-success">
-                                                         @if(Cache::has('is_online' . $rating->user->id))
-                                                            <span class="text-success">Online</span>
-                                                        @else
-                                                            <span class="text-secondary">Offline</span>
-                                                        @endif
-                                                    </span>
-                                                </li>
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">Last seen:</span>
-                                                    <span class="badge bg-label-secondary">
-                                                         @if($rating->user->last_seen != null)
-                                                            {{ \Carbon\Carbon::parse($rating->user->last_seen)->diffForHumans() }}
-                                                        @else
-                                                            No data
-                                                        @endif
-                                                    </span>
-                                                </li>
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">{{__("Role:")}}</span>
-                                                    <span>
-                                                         @if($rating->user->level_id === 1)
-                                                            User
-                                                        @elseif($rating->user->level_id === 2)
-                                                            Manager
-                                                        @elseif($rating->user->level_id === 3)
-                                                            Worker
-                                                        @elseif($rating->user->level_id === 4)
-                                                            Admin
-                                                        @endif
-                                                    </span>
-                                                </li>
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">{{__("id:")}}</span>
-                                                    <span>{{$rating->user->id}}</span>
-                                                </li>
-                                                <li class="mb-3">
-                                                    <span class="fw-bold me-2">Languages:</span>
-                                                    <span>French</span>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
+                                    <div class="d-flex justify-content-around flex-wrap my-4 py-3">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                                                <span class="badge bg-label-primary p-2 rounded"><i
+                                                        class="bx bx-star bx-sm"></i></span>
+                                            <div>
+                                                <h5 class="mb-0">{{$avg_rating}}</h5>
+                                                <span>{{__("Average")}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-start mt-3 gap-3">
+                                                <span class="badge bg-label-primary p-2 rounded"><i
+                                                        class="bx bx-customize bx-sm"></i></span>
+                                            <div>
+                                                <h5 class="mb-0">{{$completed_offers}}</h5>
+                                                <span>{{__("Completed Offers")}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="pb-2 border-bottom mb-4">{{__("Details")}}</h5>
+                                    <div class="info-container">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("Username:")}}</span>
+                                                <span>{{$user->name}}</span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("Email:")}}</span>
+                                                <span>{{$user->email}}</span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">Status:</span>
+                                                <span class="badge bg-label-success">
+                                                         @if(Cache::has('is_online' . $user->id))
+                                                        <span class="text-success">Online</span>
+                                                    @else
+                                                        <span class="text-secondary">Offline</span>
+                                                    @endif
+                                                    </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">Last seen:</span>
+                                                <span class="badge bg-label-secondary">
+                                                         @if($user->last_seen != null)
+                                                        {{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
+                                                    @else
+                                                        No data
+                                                    @endif
+                                                    </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("Role:")}}</span>
+                                                <span>
+                                                         @if($user->level_id === 1)
+                                                        User
+                                                    @elseif($user->level_id === 2)
+                                                        Manager
+                                                    @elseif($user->level_id === 3)
+                                                        Worker
+                                                    @elseif($user->level_id === 4)
+                                                        Admin
+                                                    @endif
+                                                    </span>
+                                            </li>
+                                            <li class="mb-3">
+                                                <span class="fw-bold me-2">{{__("id:")}}</span>
+                                                <span>{{$user->id}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <!-- /User Card -->
                             </div>
-                            <!--/ User Sidebar -->
-                            <!-- User Content -->
-                            <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                                <!-- Project table -->
-                                @foreach($user_ratings as $rating)
-                                <div class="card mb-4">
-                                    <h5 class="card-header">{{__("Ratings")}}</h5>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover mb-0">
-                                                <thead>
-                                                <tr>
-                                                    <th>{{__("Rating")}}</th>
-                                                    <th>{{__("Comment")}}</th>
-                                                    <th>{{__("Date")}}</th>
-                                                </tr>
-                                                </thead>
+                            <!-- /User Card -->
+                        </div>
+                        <!--/ User Sidebar -->
+                        <!-- User Content -->
+                        <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                            <!-- Project table -->
+
+                            <div class="card mb-4">
+                                <h5 class="card-header">{{__("Ratings")}}</h5>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>{{__("Rating")}}</th>
+                                                <th>{{__("Comment")}}</th>
+                                                <th>{{__("Date")}}</th>
+                                            </tr>
+                                            </thead>
+                                            @foreach($user_ratings as $rating)
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
+                                                <tr>
+                                                    <td>
                                                             <span class="badge bg-label-secondary">
                                                                      <div class="rateyo" id="rating"
                                                                           data-rateyo-rating="{{$rating->rating}}">
                                                                     </div>
                                                             </span>
-                                                        </td>
-                                                        <td>
+                                                    </td>
+                                                    <td>
                                                                 <span class="badge bg-label-secondary">
                                                                     {{$rating->comment}}
                                                                 </span>
-                                                        </td>
-                                                        <td>
+                                                    </td>
+                                                    <td>
                                                                 <span class="badge bg-label-secondary">
                                                                     {{$rating->created_at}}
                                                                 </span>
-                                                        </td>
-                                                    </tr>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
-                                            </table>
-                                        </div>
+                                            @endforeach
+                                        </table>
                                     </div>
                                 </div>
-                                @endforeach
-                                <!-- /Project table -->
                             </div>
-                            <!--/ User Content -->
 
+                            <!-- /Project table -->
                         </div>
-                    @endforeach
+                        <!--/ User Content -->
+
+                    </div>
                 </div>
                 <!-- / Content -->
 

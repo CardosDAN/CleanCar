@@ -68,9 +68,10 @@ class RatingController extends Controller
      * @param  \App\Models\Rating  $rating
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show(Rating $rating)
+    public function show(Rating $rating, $user_id)
     {
-        return view('rating.show', compact('rating'));
+        $ratings = Rating::where('user_id', $user_id)->get();
+        return view('rating.show', compact('rating', 'ratings'));
     }
 
     /**
